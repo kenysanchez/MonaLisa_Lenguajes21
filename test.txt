@@ -1,0 +1,14 @@
+Let int  cuco => 20;
+Let flt  yoshi => 100.0;
+begin;
+
+if (cuco > yoshi){
+    cuco => cuco*2 ;
+}
+else{
+        yoshi => yoshi * 2;
+}
+
+print(cuco)
+
+end;

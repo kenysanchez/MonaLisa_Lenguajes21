@@ -1,0 +1,6 @@
+Let flt hola => 10;
+Let int adios => 10;
+Let flt adios => 15;
+
+Let int byebyebye => 10;
+Let flt hi => 15;
