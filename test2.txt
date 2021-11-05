@@ -1,6 +1,16 @@
-Let flt hola => 10;
-Let int adios => 10;
-Let flt adios => 15;
+Let int x => 0;
+Let int a => 1;
+Let int b => 2;
+Let int c => 3;
+Let int d => 4;
+Let int e => 5;
+Let int g => 6;
+Let int h => 7;
+Let int y => 0;
 
-Let int byebyebye => 10;
-Let flt hi => 15;
+begin;
+x => a+b+c*(d+e*(e+g+h)+b)+a*b*c;
+while (a>b) and (d>e){
+    x=> a +b;
+}
+end;

@@ -2,7 +2,7 @@ Let int  cuco => 20;
 Let flt  yoshi => 100.0;
 begin;
 
-if (cuco > yoshi){
+if (cuco > yoshi) and (yoshi > 5) {
     cuco => cuco*2 ;
 }
 else{

@@ -2,6 +2,7 @@
 #A01244940
 #Monalisa
 
+from ntpath import join
 import ply.lex as lex
 import ply.yacc as yacc
 import numpy as np
@@ -28,6 +29,15 @@ reserved = {'if' :'IF',
 tokens = ['ID', 'asignacion', 'num', 'coma', 'puntoycoma', 'abrellave', 'cierrallave', 'abreparentesis', 'cierraparentesis',
           'suma', 'resta', 'multiplicacion', 'dividir','menorigual','mayorigual','mayor', 'menor', 'igualque', 
           'diferenteque', 'comillasdobles'] + list(reserved.values())
+
+operands = []
+operands2 = []
+tempAvail = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11']
+tempAvail2 = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11']
+cuadruplos = []
+cuadruplos2 = []
+i = 0
+j=0
 
 
 
@@ -195,6 +205,7 @@ def p_aux(p):
     aux : type ID
     ''' 
     tablaSimb[str(p[2])] = str(p[1])
+    
 
 #A -> num 
 #A -> A , num
@@ -246,7 +257,7 @@ def p_F(p):
 def p_S(p):
     '''
     S : ID abreparentesis cierraparentesis
-    S : IF C abrellave Z cierrallave ELSE abrellave Z cierrallave
+    S : IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     S : READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     S : PRINT abreparentesis M cierraparentesis
     S : LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
@@ -285,53 +296,110 @@ def p_D(p):
 #E-> T
 def p_E(p):
     '''
-    E : E suma T
-    E : E resta T
+    E : expSuma
+    E : expResta
     E : T
     '''
+
+def p_expSuma(p):
+    '''
+    expSuma : E suma T
+    '''
+    cuadruploMas(operands, tempAvail)
+
+def p_expResta(p):
+    '''
+    expResta : E resta T
+    '''
+    cuadruploMenos(operands, tempAvail)
+
+
 #T-> T * X
 #T-> T / X
 #T-> X
 def p_T(p):
     '''
-    T : T multiplicacion X
-    T : T dividir X
+    T : expMult
+    T : expDiv
     T : X
     '''
+
+def p_expMult(p):
+    '''
+    expMult : T multiplicacion X
+    '''
+    cuadruploMult(operands, tempAvail)
+
+def p_expDiv(p):
+    '''
+    expDiv : T dividir X
+    '''
+    cuadruploDiv(operands, tempAvail)
+
+
 #X-> id
 #X-> id (H)
 #X-> num 
 #X-> (E)
 def p_X(p):
     '''
-    X : ID
+    X : IDaux
     X : ID abreparentesis A cierraparentesis
     X : num
     X : abreparentesis E cierraparentesis
     '''
-   
+def p_IDaux(p):
+    '''
+    IDaux : ID
+    '''
+    operands.append(p[1])
+    print("****************ADD OPERAND")
+    print(operands)
+
+
+
 #EL-> TL
 #EL-> EL or TL
 def p_EL(p):
     '''
     EL : TL
-    EL : EL OR TL
+    EL : orAux
     '''
+
+def p_orAux(p):
+    '''
+    orAux : EL OR TL
+    '''
+    cuadruploOr(operands2, tempAvail2)
 
 #TL-> C
 #TL-> TL and C
 def p_TL(p):
     '''
     TL : C
-    TL : TL AND C
+    TL : andAux
     '''    
+def p_andAux(p):
+    '''
+    andAux : TL AND C
+    '''
+    print("AQUI SERIA")
+    cuadruploAnd(operands2, tempAvail2)
+
 #C-> (EL)
 #C-> J signos(W) J
 def p_C(p):
     '''
     C : abreparentesis EL cierraparentesis
-    C : J W J
+    C : Comp
     '''
+
+def p_Comp(p):
+    '''
+    Comp : J W J
+    '''
+    cuadruploComp(operands2, tempAvail2, p[2])
+
 
 #J-> id (num,...)
 #J-> id
@@ -339,9 +407,16 @@ def p_C(p):
 def p_J(p):
     '''
     J : ID abreparentesis A cierraparentesis
-    J : ID
+    J : IDoux
     J : num
     '''
+def p_IDoux(p):
+    '''
+    IDoux : ID
+    '''
+    operands2.append(p[1])
+    print("****************ADD OPERAND")
+    print(operands2)
 
 #W-> >=, <=, >, <, ==, !=
 def p_W(p):
@@ -353,6 +428,9 @@ def p_W(p):
     W : igualque
     W : diferenteque
     '''
+    p[0] = p[1]
+    
+
 
 #Por si hay un error
 def p_error(p):
@@ -365,6 +443,104 @@ parser = yacc.yacc()
 #####################################
 tablaSimb = {}
 
+#####################################
+####      Codigo intermedio     ##### 
+#####################################
+def cuadruploMas(operands, tempAvail):
+    global i
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+      
+    cuadruplos.append("+")
+    cuadruplos.append(oper1)
+    cuadruplos.append(oper2)
+    cuadruplos.append(result)
+    i=i+1
+
+def cuadruploMenos(operands, tempAvail):
+    global i
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+
+    cuadruplos.append("-")
+    cuadruplos.append(oper1)
+    cuadruplos.append(oper2)
+    cuadruplos.append(result)
+    i=i+1
+
+def cuadruploDiv(operands, tempAvail):
+    global i
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+
+    cuadruplos.append("/")
+    cuadruplos.append(oper1)
+    cuadruplos.append(oper2)
+    cuadruplos.append(result)
+    i=i+1
+
+def cuadruploMult(operands, tempAvail):
+    global i
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+
+    cuadruplos.append("*")
+    cuadruplos.append(oper1)
+    cuadruplos.append(oper2)
+    cuadruplos.append(result)
+    i=i+1
+#Cuadruplos logicos
+def cuadruploAnd(operands, tempAvail):
+    global j
+    oper2 = operands2.pop()
+    oper1 = operands2.pop()
+    result = tempAvail2[j]
+    operands2.append(result)
+
+    cuadruplos2.append("AND")
+    cuadruplos2.append(oper1)
+    cuadruplos2.append(oper2)
+    cuadruplos2.append(result)
+    j=j+1
+
+def cuadruploOr(operands, tempAvail):
+    global j
+    oper2 = operands2.pop()
+    oper1 = operands2.pop()
+    result = tempAvail2[j]
+    operands2.append(result)
+
+    cuadruplos2.append("OR")
+    cuadruplos2.append(oper1)
+    cuadruplos2.append(oper2)
+    cuadruplos2.append(result)
+    j=j+1
+
+#Cuadruplos Comparativos
+def cuadruploComp(operands, tempAvail, comp):
+    global j
+    oper2 = operands2.pop()
+    oper1 = operands2.pop()
+    result = tempAvail2[j]
+    operands2.append(result)
+
+    cuadruplos2.append(str(comp))
+    cuadruplos2.append(oper1)
+    cuadruplos2.append(oper2)
+    cuadruplos2.append(result)
+    j=j+1
+    print("CuadruploComparacion")
+    print(cuadruplos2)
+
+    
 #####################################
 ####          Pruebas           ##### 
 #####################################
@@ -401,3 +577,19 @@ print("\n#######  TABLA DE SIMBOLOS  ######")
 tablaSimb_items = tablaSimb.items()
 for item in tablaSimb_items:
     print(item)
+
+#Imprimir Pila de operandos
+print("\nOPERANDS")
+print(operands)
+
+#Imprimir Cuadruplos
+print("\nCUADRUPLOS")
+print(cuadruplos)
+
+#Imprimir Pila de operandos
+print("\nOPERANDS LOGICOS")
+print(operands2)
+
+#Imprimir Cuadruplos
+print("\nCUADRUPLOS LOGICOS")
+print(cuadruplos2)
