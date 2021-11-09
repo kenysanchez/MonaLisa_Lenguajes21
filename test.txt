@@ -1,12 +1,13 @@
 Let int  cuco => 20;
-Let flt  yoshi => 100.0;
+Let flt  yoshi => 100;
+Let int maya => 5;
 begin;
 
-if (cuco > yoshi) and (yoshi > 5) {
-    cuco => cuco*2 ;
+if (cuco > yoshi) and (yoshi > maya) {
+    cuco => cuco*maya ;
 }
 else{
-        yoshi => yoshi * 2;
+    yoshi => yoshi * laika;
 }
 
 print(cuco)

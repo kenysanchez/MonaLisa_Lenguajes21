@@ -260,10 +260,10 @@ def p_S(p):
     S : IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     S : READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     S : PRINT abreparentesis M cierraparentesis
-    S : LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    S : WHILE C abrellave Z cierrallave
-    S : LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave 
-    S : FOR abreparentesis LET type ID asignacion K  puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    S : LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    S : WHILE EL abrellave Z cierrallave
+    S : LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave 
+    S : FOR abreparentesis LET type ID asignacion K  puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     S : ID D asignacion E
     S : BREAK
       |
@@ -352,46 +352,48 @@ def p_IDaux(p):
     '''
     IDaux : ID
     '''
-    operands.append(p[1])
-    print("****************ADD OPERAND")
-    print(operands)
-
-
+    if checkVarDefined(p[1]) == True:
+        operands.append(p[1])
+        print("****************ADD OPERAND")
+        print(operands)
+    else:
+        print("VARIABLE NO DECLARADA")
 
 #EL-> TL
 #EL-> EL or TL
 def p_EL(p):
     '''
-    EL : TL
+    EL : AL
     EL : orAux
+    '''
+    
+
+def p_AL(p):
+    '''
+    AL : TL
+    AL : andAux
     '''
 
 def p_orAux(p):
     '''
-    orAux : EL OR TL
+    orAux : EL OR AL
     '''
+    print("OR*******")
     cuadruploOr(operands2, tempAvail2)
 
-#TL-> C
-#TL-> TL and C
-def p_TL(p):
-    '''
-    TL : C
-    TL : andAux
-    '''    
 def p_andAux(p):
     '''
-    andAux : TL AND C
+    andAux : AL AND TL
     '''
-    print("AQUI SERIA")
+    print("AND*******")
     cuadruploAnd(operands2, tempAvail2)
 
 #C-> (EL)
 #C-> J signos(W) J
-def p_C(p):
+def p_TL(p):
     '''
-    C : abreparentesis EL cierraparentesis
-    C : Comp
+    TL : abreparentesis EL cierraparentesis
+    TL : Comp
     '''
 
 def p_Comp(p):
@@ -414,9 +416,12 @@ def p_IDoux(p):
     '''
     IDoux : ID
     '''
-    operands2.append(p[1])
-    print("****************ADD OPERAND")
-    print(operands2)
+    if checkVarDefined(p[1]) ==  True:
+        operands2.append(p[1])
+        print("****************ADD OPERAND")
+        print(operands2)
+    else:
+        print("VARIABLE NO DECLARADA")
 
 #W-> >=, <=, >, <, ==, !=
 def p_W(p):
@@ -510,6 +515,8 @@ def cuadruploAnd(operands, tempAvail):
     cuadruplos2.append(oper2)
     cuadruplos2.append(result)
     j=j+1
+    print("CuadruploAND")
+    print(cuadruplos2)
 
 def cuadruploOr(operands, tempAvail):
     global j
@@ -523,6 +530,8 @@ def cuadruploOr(operands, tempAvail):
     cuadruplos2.append(oper2)
     cuadruplos2.append(result)
     j=j+1
+    print("CuadruploOR")
+    print(cuadruplos2)
 
 #Cuadruplos Comparativos
 def cuadruploComp(operands, tempAvail, comp):
@@ -540,7 +549,14 @@ def cuadruploComp(operands, tempAvail, comp):
     print("CuadruploComparacion")
     print(cuadruplos2)
 
-    
+def checkVarDefined(key):
+    if key in tablaSimb.keys():
+        return True    
+    else:
+        return False
+
+
+
 #####################################
 ####          Pruebas           ##### 
 #####################################

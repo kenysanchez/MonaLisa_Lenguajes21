@@ -24,10 +24,10 @@ Rule 18    S -> ID abreparentesis cierraparentesis
 Rule 19    S -> IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
 Rule 20    S -> READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
 Rule 21    S -> PRINT abreparentesis M cierraparentesis
-Rule 22    S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-Rule 23    S -> WHILE C abrellave Z cierrallave
-Rule 24    S -> LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-Rule 25    S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+Rule 22    S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+Rule 23    S -> WHILE EL abrellave Z cierrallave
+Rule 24    S -> LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+Rule 25    S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 Rule 26    S -> ID D asignacion E
 Rule 27    S -> BREAK
 Rule 28    S -> <empty>
@@ -52,14 +52,14 @@ Rule 46    X -> ID abreparentesis A cierraparentesis
 Rule 47    X -> num
 Rule 48    X -> abreparentesis E cierraparentesis
 Rule 49    IDaux -> ID
-Rule 50    EL -> TL
+Rule 50    EL -> AL
 Rule 51    EL -> orAux
-Rule 52    orAux -> EL OR TL
-Rule 53    TL -> C
-Rule 54    TL -> andAux
-Rule 55    andAux -> TL AND C
-Rule 56    C -> abreparentesis EL cierraparentesis
-Rule 57    C -> Comp
+Rule 52    AL -> TL
+Rule 53    AL -> andAux
+Rule 54    orAux -> EL OR AL
+Rule 55    andAux -> AL AND TL
+Rule 56    TL -> abreparentesis EL cierraparentesis
+Rule 57    TL -> Comp
 Rule 58    Comp -> J W J
 Rule 59    J -> ID abreparentesis A cierraparentesis
 Rule 60    J -> IDoux
@@ -87,7 +87,7 @@ IF                   : 19 22
 INT                  : 6
 LET                  : 2 3 22 25
 LOOP                 : 24
-OR                   : 52
+OR                   : 54
 PRINT                : 21
 READ                 : 20
 WHILE                : 23
@@ -115,12 +115,12 @@ suma                 : 25 38
 Nonterminals, with rules where they appear
 
 A                    : 3 9 20 32 33 46 59
+AL                   : 50 54 55
 B                    : 24
-C                    : 22 23 24 25 53 55
 Comp                 : 57
 D                    : 26
 E                    : 26 38 39 48
-EL                   : 19 52 56
+EL                   : 19 22 23 24 25 54 56
 F                    : 1 16
 IDaux                : 45
 IDoux                : 60
@@ -131,12 +131,12 @@ Main                 : 1
 Programa             : 0
 S                    : 12 13 16
 T                    : 37 38 39 43 44
-TL                   : 50 52 55
+TL                   : 52 55
 V                    : 1 2 3
 W                    : 58
 X                    : 42 43 44
 Z                    : 10 13 19 19 22 22 23 24 25
-andAux               : 54
+andAux               : 53
 aux                  : 2 3
 expDiv               : 41
 expMult              : 40
@@ -294,10 +294,10 @@ state 15
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -356,10 +356,10 @@ state 20
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -385,10 +385,10 @@ state 21
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -429,14 +429,14 @@ state 23
 state 24
 
     (19) S -> IF . EL abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (50) EL -> . TL
+    (50) EL -> . AL
     (51) EL -> . orAux
-    (53) TL -> . C
-    (54) TL -> . andAux
-    (52) orAux -> . EL OR TL
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
-    (55) andAux -> . TL AND C
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -448,9 +448,9 @@ state 24
     num             shift and go to state 51
 
     EL                             shift and go to state 41
-    TL                             shift and go to state 42
+    AL                             shift and go to state 42
     orAux                          shift and go to state 43
-    C                              shift and go to state 44
+    TL                             shift and go to state 44
     andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
@@ -472,16 +472,22 @@ state 26
 
 state 27
 
-    (22) S -> LET . ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET . ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
     ID              shift and go to state 54
 
 
 state 28
 
-    (23) S -> WHILE . C abrellave Z cierrallave
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
+    (23) S -> WHILE . EL abrellave Z cierrallave
+    (50) EL -> . AL
+    (51) EL -> . orAux
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -492,21 +498,25 @@ state 28
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    C                              shift and go to state 55
+    EL                             shift and go to state 55
+    AL                             shift and go to state 42
+    orAux                          shift and go to state 43
+    TL                             shift and go to state 44
+    andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
 state 29
 
-    (24) S -> LOOP . abrellave Z abreparentesis C cierraparentesis B cierrallave
+    (24) S -> LOOP . abrellave Z abreparentesis EL cierraparentesis B cierrallave
 
     abrellave       shift and go to state 56
 
 
 state 30
 
-    (25) S -> FOR . abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR . abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 
     abreparentesis  shift and go to state 57
 
@@ -612,7 +622,7 @@ state 40
 state 41
 
     (19) S -> IF EL . abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (52) orAux -> EL . OR TL
+    (54) orAux -> EL . OR AL
 
     abrellave       shift and go to state 67
     OR              shift and go to state 68
@@ -620,12 +630,13 @@ state 41
 
 state 42
 
-    (50) EL -> TL .
-    (55) andAux -> TL . AND C
+    (50) EL -> AL .
+    (55) andAux -> AL . AND TL
 
-    abrellave       reduce using rule 50 (EL -> TL .)
-    OR              reduce using rule 50 (EL -> TL .)
-    cierraparentesis reduce using rule 50 (EL -> TL .)
+    abrellave       reduce using rule 50 (EL -> AL .)
+    OR              reduce using rule 50 (EL -> AL .)
+    cierraparentesis reduce using rule 50 (EL -> AL .)
+    puntoycoma      reduce using rule 50 (EL -> AL .)
     AND             shift and go to state 69
 
 
@@ -636,39 +647,42 @@ state 43
     abrellave       reduce using rule 51 (EL -> orAux .)
     OR              reduce using rule 51 (EL -> orAux .)
     cierraparentesis reduce using rule 51 (EL -> orAux .)
+    puntoycoma      reduce using rule 51 (EL -> orAux .)
 
 
 state 44
 
-    (53) TL -> C .
+    (52) AL -> TL .
 
-    AND             reduce using rule 53 (TL -> C .)
-    abrellave       reduce using rule 53 (TL -> C .)
-    OR              reduce using rule 53 (TL -> C .)
-    cierraparentesis reduce using rule 53 (TL -> C .)
+    AND             reduce using rule 52 (AL -> TL .)
+    abrellave       reduce using rule 52 (AL -> TL .)
+    OR              reduce using rule 52 (AL -> TL .)
+    cierraparentesis reduce using rule 52 (AL -> TL .)
+    puntoycoma      reduce using rule 52 (AL -> TL .)
 
 
 state 45
 
-    (54) TL -> andAux .
+    (53) AL -> andAux .
 
-    AND             reduce using rule 54 (TL -> andAux .)
-    abrellave       reduce using rule 54 (TL -> andAux .)
-    OR              reduce using rule 54 (TL -> andAux .)
-    cierraparentesis reduce using rule 54 (TL -> andAux .)
+    AND             reduce using rule 53 (AL -> andAux .)
+    abrellave       reduce using rule 53 (AL -> andAux .)
+    OR              reduce using rule 53 (AL -> andAux .)
+    cierraparentesis reduce using rule 53 (AL -> andAux .)
+    puntoycoma      reduce using rule 53 (AL -> andAux .)
 
 
 state 46
 
-    (56) C -> abreparentesis . EL cierraparentesis
-    (50) EL -> . TL
+    (56) TL -> abreparentesis . EL cierraparentesis
+    (50) EL -> . AL
     (51) EL -> . orAux
-    (53) TL -> . C
-    (54) TL -> . andAux
-    (52) orAux -> . EL OR TL
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
-    (55) andAux -> . TL AND C
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -680,9 +694,9 @@ state 46
     num             shift and go to state 51
 
     EL                             shift and go to state 70
-    TL                             shift and go to state 42
+    AL                             shift and go to state 42
     orAux                          shift and go to state 43
-    C                              shift and go to state 44
+    TL                             shift and go to state 44
     andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
@@ -690,13 +704,13 @@ state 46
 
 state 47
 
-    (57) C -> Comp .
+    (57) TL -> Comp .
 
-    AND             reduce using rule 57 (C -> Comp .)
-    abrellave       reduce using rule 57 (C -> Comp .)
-    OR              reduce using rule 57 (C -> Comp .)
-    cierraparentesis reduce using rule 57 (C -> Comp .)
-    puntoycoma      reduce using rule 57 (C -> Comp .)
+    AND             reduce using rule 57 (TL -> Comp .)
+    abrellave       reduce using rule 57 (TL -> Comp .)
+    OR              reduce using rule 57 (TL -> Comp .)
+    cierraparentesis reduce using rule 57 (TL -> Comp .)
+    puntoycoma      reduce using rule 57 (TL -> Comp .)
 
 
 state 48
@@ -794,31 +808,33 @@ state 53
 
 state 54
 
-    (22) S -> LET ID . asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID . asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
     asignacion      shift and go to state 83
 
 
 state 55
 
-    (23) S -> WHILE C . abrellave Z cierrallave
+    (23) S -> WHILE EL . abrellave Z cierrallave
+    (54) orAux -> EL . OR AL
 
     abrellave       shift and go to state 84
+    OR              shift and go to state 68
 
 
 state 56
 
-    (24) S -> LOOP abrellave . Z abreparentesis C cierraparentesis B cierrallave
+    (24) S -> LOOP abrellave . Z abreparentesis EL cierraparentesis B cierrallave
     (12) Z -> . S puntoycoma
     (13) Z -> . Z S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -839,7 +855,7 @@ state 56
 
 state 57
 
-    (25) S -> FOR abreparentesis . LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis . LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 
     LET             shift and go to state 86
 
@@ -960,10 +976,10 @@ state 67
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -984,12 +1000,12 @@ state 67
 
 state 68
 
-    (52) orAux -> EL OR . TL
-    (53) TL -> . C
-    (54) TL -> . andAux
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
-    (55) andAux -> . TL AND C
+    (54) orAux -> EL OR . AL
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -1000,8 +1016,8 @@ state 68
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    TL                             shift and go to state 102
-    C                              shift and go to state 44
+    AL                             shift and go to state 102
+    TL                             shift and go to state 44
     andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
@@ -1009,9 +1025,9 @@ state 68
 
 state 69
 
-    (55) andAux -> TL AND . C
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
+    (55) andAux -> AL AND . TL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -1022,15 +1038,15 @@ state 69
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    C                              shift and go to state 103
+    TL                             shift and go to state 103
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
 state 70
 
-    (56) C -> abreparentesis EL . cierraparentesis
-    (52) orAux -> EL . OR TL
+    (56) TL -> abreparentesis EL . cierraparentesis
+    (54) orAux -> EL . OR AL
 
     cierraparentesis shift and go to state 104
     OR              shift and go to state 68
@@ -1144,24 +1160,24 @@ state 82
 
 state 83
 
-    (22) S -> LET ID asignacion . IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion . IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
     IF              shift and go to state 110
 
 
 state 84
 
-    (23) S -> WHILE C abrellave . Z cierrallave
+    (23) S -> WHILE EL abrellave . Z cierrallave
     (12) Z -> . S puntoycoma
     (13) Z -> . Z S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -1182,16 +1198,16 @@ state 84
 
 state 85
 
-    (24) S -> LOOP abrellave Z . abreparentesis C cierraparentesis B cierrallave
+    (24) S -> LOOP abrellave Z . abreparentesis EL cierraparentesis B cierrallave
     (13) Z -> Z . S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -1212,7 +1228,7 @@ state 85
 
 state 86
 
-    (25) S -> FOR abreparentesis LET . type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET . type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (6) type -> . INT
     (7) type -> . FLT
 
@@ -1419,10 +1435,10 @@ state 101
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -1443,34 +1459,36 @@ state 101
 
 state 102
 
-    (52) orAux -> EL OR TL .
-    (55) andAux -> TL . AND C
+    (54) orAux -> EL OR AL .
+    (55) andAux -> AL . AND TL
 
-    abrellave       reduce using rule 52 (orAux -> EL OR TL .)
-    OR              reduce using rule 52 (orAux -> EL OR TL .)
-    cierraparentesis reduce using rule 52 (orAux -> EL OR TL .)
+    abrellave       reduce using rule 54 (orAux -> EL OR AL .)
+    OR              reduce using rule 54 (orAux -> EL OR AL .)
+    cierraparentesis reduce using rule 54 (orAux -> EL OR AL .)
+    puntoycoma      reduce using rule 54 (orAux -> EL OR AL .)
     AND             shift and go to state 69
 
 
 state 103
 
-    (55) andAux -> TL AND C .
+    (55) andAux -> AL AND TL .
 
-    AND             reduce using rule 55 (andAux -> TL AND C .)
-    abrellave       reduce using rule 55 (andAux -> TL AND C .)
-    OR              reduce using rule 55 (andAux -> TL AND C .)
-    cierraparentesis reduce using rule 55 (andAux -> TL AND C .)
+    AND             reduce using rule 55 (andAux -> AL AND TL .)
+    abrellave       reduce using rule 55 (andAux -> AL AND TL .)
+    OR              reduce using rule 55 (andAux -> AL AND TL .)
+    cierraparentesis reduce using rule 55 (andAux -> AL AND TL .)
+    puntoycoma      reduce using rule 55 (andAux -> AL AND TL .)
 
 
 state 104
 
-    (56) C -> abreparentesis EL cierraparentesis .
+    (56) TL -> abreparentesis EL cierraparentesis .
 
-    AND             reduce using rule 56 (C -> abreparentesis EL cierraparentesis .)
-    abrellave       reduce using rule 56 (C -> abreparentesis EL cierraparentesis .)
-    OR              reduce using rule 56 (C -> abreparentesis EL cierraparentesis .)
-    cierraparentesis reduce using rule 56 (C -> abreparentesis EL cierraparentesis .)
-    puntoycoma      reduce using rule 56 (C -> abreparentesis EL cierraparentesis .)
+    AND             reduce using rule 56 (TL -> abreparentesis EL cierraparentesis .)
+    abrellave       reduce using rule 56 (TL -> abreparentesis EL cierraparentesis .)
+    OR              reduce using rule 56 (TL -> abreparentesis EL cierraparentesis .)
+    cierraparentesis reduce using rule 56 (TL -> abreparentesis EL cierraparentesis .)
+    puntoycoma      reduce using rule 56 (TL -> abreparentesis EL cierraparentesis .)
 
 
 state 105
@@ -1520,23 +1538,23 @@ state 109
 
 state 110
 
-    (22) S -> LET ID asignacion IF . abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF . abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
     abreparentesis  shift and go to state 125
 
 
 state 111
 
-    (23) S -> WHILE C abrellave Z . cierrallave
+    (23) S -> WHILE EL abrellave Z . cierrallave
     (13) Z -> Z . S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -1557,9 +1575,15 @@ state 111
 
 state 112
 
-    (24) S -> LOOP abrellave Z abreparentesis . C cierraparentesis B cierrallave
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
+    (24) S -> LOOP abrellave Z abreparentesis . EL cierraparentesis B cierrallave
+    (50) EL -> . AL
+    (51) EL -> . orAux
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -1570,14 +1594,18 @@ state 112
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    C                              shift and go to state 127
+    EL                             shift and go to state 127
+    AL                             shift and go to state 42
+    orAux                          shift and go to state 43
+    TL                             shift and go to state 44
+    andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
 state 113
 
-    (25) S -> FOR abreparentesis LET type . ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type . ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 
     ID              shift and go to state 128
 
@@ -1734,9 +1762,15 @@ state 124
 
 state 125
 
-    (22) S -> LET ID asignacion IF abreparentesis . C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
+    (22) S -> LET ID asignacion IF abreparentesis . EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (50) EL -> . AL
+    (51) EL -> . orAux
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -1747,29 +1781,35 @@ state 125
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    C                              shift and go to state 137
+    EL                             shift and go to state 137
+    AL                             shift and go to state 42
+    orAux                          shift and go to state 43
+    TL                             shift and go to state 44
+    andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
 state 126
 
-    (23) S -> WHILE C abrellave Z cierrallave .
+    (23) S -> WHILE EL abrellave Z cierrallave .
 
-    puntoycoma      reduce using rule 23 (S -> WHILE C abrellave Z cierrallave .)
-    cierrallave     reduce using rule 23 (S -> WHILE C abrellave Z cierrallave .)
+    puntoycoma      reduce using rule 23 (S -> WHILE EL abrellave Z cierrallave .)
+    cierrallave     reduce using rule 23 (S -> WHILE EL abrellave Z cierrallave .)
 
 
 state 127
 
-    (24) S -> LOOP abrellave Z abreparentesis C . cierraparentesis B cierrallave
+    (24) S -> LOOP abrellave Z abreparentesis EL . cierraparentesis B cierrallave
+    (54) orAux -> EL . OR AL
 
     cierraparentesis shift and go to state 138
+    OR              shift and go to state 68
 
 
 state 128
 
-    (25) S -> FOR abreparentesis LET type ID . asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID . asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 
     asignacion      shift and go to state 139
 
@@ -1868,14 +1908,16 @@ state 136
 
 state 137
 
-    (22) S -> LET ID asignacion IF abreparentesis C . cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL . cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (54) orAux -> EL . OR AL
 
     cierraparentesis shift and go to state 143
+    OR              shift and go to state 68
 
 
 state 138
 
-    (24) S -> LOOP abrellave Z abreparentesis C cierraparentesis . B cierrallave
+    (24) S -> LOOP abrellave Z abreparentesis EL cierraparentesis . B cierrallave
     (29) B -> . abrellave BREAK cierrallave
     (30) B -> .
 
@@ -1886,7 +1928,7 @@ state 138
 
 state 139
 
-    (25) S -> FOR abreparentesis LET type ID asignacion . K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion . K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (14) K -> . ID
     (15) K -> . num
 
@@ -1917,10 +1959,10 @@ state 141
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -1949,7 +1991,7 @@ state 142
 
 state 143
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis . abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis . abrellave Z cierrallave ELSE abrellave Z cierrallave
 
     abrellave       shift and go to state 148
 
@@ -1963,14 +2005,14 @@ state 144
 
 state 145
 
-    (24) S -> LOOP abrellave Z abreparentesis C cierraparentesis B . cierrallave
+    (24) S -> LOOP abrellave Z abreparentesis EL cierraparentesis B . cierrallave
 
     cierrallave     shift and go to state 150
 
 
 state 146
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K . puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K . puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
 
     puntoycoma      shift and go to state 151
 
@@ -1983,10 +2025,10 @@ state 147
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2007,17 +2049,17 @@ state 147
 
 state 148
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave . Z cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave . Z cierrallave ELSE abrellave Z cierrallave
     (12) Z -> . S puntoycoma
     (13) Z -> . Z S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2045,17 +2087,23 @@ state 149
 
 state 150
 
-    (24) S -> LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave .
+    (24) S -> LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave .
 
-    puntoycoma      reduce using rule 24 (S -> LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave .)
-    cierrallave     reduce using rule 24 (S -> LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave .)
+    puntoycoma      reduce using rule 24 (S -> LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave .)
+    cierrallave     reduce using rule 24 (S -> LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave .)
 
 
 state 151
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma . C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
-    (56) C -> . abreparentesis EL cierraparentesis
-    (57) C -> . Comp
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma . EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (50) EL -> . AL
+    (51) EL -> . orAux
+    (52) AL -> . TL
+    (53) AL -> . andAux
+    (54) orAux -> . EL OR AL
+    (56) TL -> . abreparentesis EL cierraparentesis
+    (57) TL -> . Comp
+    (55) andAux -> . AL AND TL
     (58) Comp -> . J W J
     (59) J -> . ID abreparentesis A cierraparentesis
     (60) J -> . IDoux
@@ -2066,7 +2114,11 @@ state 151
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    C                              shift and go to state 155
+    EL                             shift and go to state 155
+    AL                             shift and go to state 42
+    orAux                          shift and go to state 43
+    TL                             shift and go to state 44
+    andAux                         shift and go to state 45
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
@@ -2081,16 +2133,16 @@ state 152
 
 state 153
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z . cierrallave ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z . cierrallave ELSE abrellave Z cierrallave
     (13) Z -> Z . S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2118,52 +2170,54 @@ state 154
 
 state 155
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C . puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL . puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (54) orAux -> EL . OR AL
 
     puntoycoma      shift and go to state 157
+    OR              shift and go to state 68
 
 
 state 156
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave . ELSE abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave . ELSE abrellave Z cierrallave
 
     ELSE            shift and go to state 158
 
 
 state 157
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma . ID suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma . ID suma num cierraparentesis abrellave Z cierrallave
 
     ID              shift and go to state 159
 
 
 state 158
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE . abrellave Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE . abrellave Z cierrallave
 
     abrellave       shift and go to state 160
 
 
 state 159
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID . suma num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID . suma num cierraparentesis abrellave Z cierrallave
 
     suma            shift and go to state 161
 
 
 state 160
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave . Z cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave . Z cierrallave
     (12) Z -> . S puntoycoma
     (13) Z -> . Z S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2184,23 +2238,23 @@ state 160
 
 state 161
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma . num cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma . num cierraparentesis abrellave Z cierrallave
 
     num             shift and go to state 163
 
 
 state 162
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z . cierrallave
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z . cierrallave
     (13) Z -> Z . S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2221,39 +2275,39 @@ state 162
 
 state 163
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num . cierraparentesis abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num . cierraparentesis abrellave Z cierrallave
 
     cierraparentesis shift and go to state 165
 
 
 state 164
 
-    (22) S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .
+    (22) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .
 
-    puntoycoma      reduce using rule 22 (S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .)
-    cierrallave     reduce using rule 22 (S -> LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .)
+    puntoycoma      reduce using rule 22 (S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .)
+    cierrallave     reduce using rule 22 (S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .)
 
 
 state 165
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis . abrellave Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis . abrellave Z cierrallave
 
     abrellave       shift and go to state 166
 
 
 state 166
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave . Z cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave . Z cierrallave
     (12) Z -> . S puntoycoma
     (13) Z -> . Z S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2274,16 +2328,16 @@ state 166
 
 state 167
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z . cierrallave
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z . cierrallave
     (13) Z -> Z . S puntoycoma
     (18) S -> . ID abreparentesis cierraparentesis
     (19) S -> . IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
     (20) S -> . READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     (21) S -> . PRINT abreparentesis M cierraparentesis
-    (22) S -> . LET ID asignacion IF abreparentesis C cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (23) S -> . WHILE C abrellave Z cierrallave
-    (24) S -> . LOOP abrellave Z abreparentesis C cierraparentesis B cierrallave
-    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    (22) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (23) S -> . WHILE EL abrellave Z cierrallave
+    (24) S -> . LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (25) S -> . FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     (26) S -> . ID D asignacion E
     (27) S -> . BREAK
     (28) S -> .
@@ -2304,8 +2358,8 @@ state 167
 
 state 168
 
-    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .
+    (25) S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .
 
-    puntoycoma      reduce using rule 25 (S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .)
-    cierrallave     reduce using rule 25 (S -> FOR abreparentesis LET type ID asignacion K puntoycoma C puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .)
+    puntoycoma      reduce using rule 25 (S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .)
+    cierrallave     reduce using rule 25 (S -> FOR abreparentesis LET type ID asignacion K puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave .)
 

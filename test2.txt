@@ -7,10 +7,10 @@ Let int e => 5;
 Let int g => 6;
 Let int h => 7;
 Let int y => 0;
+Let int f => 0;
 
 begin;
-x => a+b+c*(d+e*(e+g+h)+b)+a*b*c;
-while (a>b) and (d>e){
-    x=> a +b;
+x => a+b+c*(d+e*(e+g+h)+b)+a*b*c ;
+while (a>b) and (b <c) or (d == e) and (e <=f){
 }
 end;
