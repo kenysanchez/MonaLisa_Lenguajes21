@@ -1,16 +1,16 @@
-Let int x => 0;
 Let int a => 1;
 Let int b => 2;
 Let int c => 3;
-Let int d => 4;
-Let int e => 5;
-Let int g => 6;
-Let int h => 7;
-Let int y => 0;
-Let int f => 0;
+
 
 begin;
-x => a+b+c*(d+e*(e+g+h)+b)+a*b*c ;
-while (a>b) and (b <c) or (d == e) and (e <=f){
-}
+
+while(a>b) or (b<c){
+    while(a>b){
+    b => b+c;
+};
+};
+
+
+
 end;

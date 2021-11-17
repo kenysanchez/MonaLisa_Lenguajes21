@@ -3,6 +3,8 @@
 #Monalisa
 
 from ntpath import join
+from numpy.core.fromnumeric import shape
+from numpy.lib import npyio
 import ply.lex as lex
 import ply.yacc as yacc
 import numpy as np
@@ -31,13 +33,11 @@ tokens = ['ID', 'asignacion', 'num', 'coma', 'puntoycoma', 'abrellave', 'cierral
           'diferenteque', 'comillasdobles'] + list(reserved.values())
 
 operands = []
-operands2 = []
-tempAvail = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11']
-tempAvail2 = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11']
-cuadruplos = []
-cuadruplos2 = []
+tempAvail = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20']
+cuadruplos = np.zeros(shape=(1,4))
+saltos = []
 i = 0
-j=0
+
 
 
 
@@ -196,10 +196,12 @@ def p_Programa(p):
 #V-> V Let id => (A);
 def p_V(p):
     '''
-    V : LET aux asignacion K puntoycoma V
-    V : LET aux asignacion abreparentesis  A cierraparentesis puntoycoma V
+    V : V LET aux asignacion K puntoycoma
+    V : V LET aux asignacion abreparentesis  A cierraparentesis puntoycoma
       |
     '''
+print("*************VAR DECLARADA")
+
 def p_aux(p):
     '''
     aux : type ID
@@ -238,6 +240,7 @@ def p_Z(p):
     Z : S puntoycoma
     Z : Z S puntoycoma
     '''
+    print("************Z")
 #k -> id
 #k -> num
 def p_K(p):
@@ -257,17 +260,67 @@ def p_F(p):
 def p_S(p):
     '''
     S : ID abreparentesis cierraparentesis
-    S : IF EL abrellave Z cierrallave ELSE abrellave Z cierrallave
+    S : IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3
     S : READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
     S : PRINT abreparentesis M cierraparentesis
     S : LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    S : WHILE EL abrellave Z cierrallave
+    S : whileAux EL whileAux2 Z whileAux3
     S : LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave 
     S : FOR abreparentesis LET type ID asignacion K  puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
     S : ID D asignacion E
     S : BREAK
       |
     '''
+def p_ifAux(p):
+    '''
+    ifAux : abrellave
+    ''' 
+    R = operands.pop()
+    generarGTF(R)
+    saltos.append(i)
+
+def p_ifAux2(p):
+    '''
+    ifAux2 : abrellave
+    ''' 
+    generarGTIiF()
+    f = saltos.pop()
+    rellenar(f, i)
+    saltos.append(i-1)
+    print("*************************IFAUX2")
+    
+
+def p_ifAux3(p):
+    '''
+    ifAux3 : cierrallave
+    ''' 
+    fin = saltos.pop()
+    rellenarFinal(fin, i)
+    print("--------------fin" + str(fin))
+
+def p_whileAux(p):
+    '''
+    whileAux : WHILE
+    ''' 
+    saltos.append(i)
+
+def p_whileAux2(p):
+    '''
+    whileAux2 : abrellave
+    '''    
+    R = operands.pop()
+    generarGTF(R);
+    saltos.append(i-1)
+
+def p_whileAux3(p):
+    '''
+    whileAux3 : cierrallave
+    '''    
+    f = saltos.pop()
+    retorno = saltos.pop()
+    generarGT(retorno)
+    rellenar(f, i)
+
 
 #B-> { break } 
 def p_B(p):
@@ -355,7 +408,7 @@ def p_IDaux(p):
     if checkVarDefined(p[1]) == True:
         operands.append(p[1])
         print("****************ADD OPERAND")
-        print(operands)
+        #print(operands)
     else:
         print("VARIABLE NO DECLARADA")
 
@@ -379,14 +432,14 @@ def p_orAux(p):
     orAux : EL OR AL
     '''
     print("OR*******")
-    cuadruploOr(operands2, tempAvail2)
+    cuadruploOr(operands, tempAvail)
 
 def p_andAux(p):
     '''
     andAux : AL AND TL
     '''
     print("AND*******")
-    cuadruploAnd(operands2, tempAvail2)
+    cuadruploAnd(operands, tempAvail)
 
 #C-> (EL)
 #C-> J signos(W) J
@@ -400,7 +453,7 @@ def p_Comp(p):
     '''
     Comp : J W J
     '''
-    cuadruploComp(operands2, tempAvail2, p[2])
+    cuadruploComp(operands, tempAvail, p[2])
 
 
 #J-> id (num,...)
@@ -417,9 +470,9 @@ def p_IDoux(p):
     IDoux : ID
     '''
     if checkVarDefined(p[1]) ==  True:
-        operands2.append(p[1])
+        operands.append(p[1])
         print("****************ADD OPERAND")
-        print(operands2)
+        #print(operands)
     else:
         print("VARIABLE NO DECLARADA")
 
@@ -439,7 +492,7 @@ def p_W(p):
 
 #Por si hay un error
 def p_error(p):
-    print("\t******")
+    print("\t****ERROR****")
 
 parser = yacc.yacc()
 
@@ -453,101 +506,91 @@ tablaSimb = {}
 #####################################
 def cuadruploMas(operands, tempAvail):
     global i
+    global cuadruplos
     oper2 = operands.pop()
     oper1 = operands.pop()
     result = tempAvail[i]
     operands.append(result)
       
-    cuadruplos.append("+")
-    cuadruplos.append(oper1)
-    cuadruplos.append(oper2)
-    cuadruplos.append(result)
+    row = np.array(['+', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
 
 def cuadruploMenos(operands, tempAvail):
     global i
+    global cuadruplos
     oper2 = operands.pop()
     oper1 = operands.pop()
     result = tempAvail[i]
     operands.append(result)
 
-    cuadruplos.append("-")
-    cuadruplos.append(oper1)
-    cuadruplos.append(oper2)
-    cuadruplos.append(result)
+    row = np.array(['-', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
 
 def cuadruploDiv(operands, tempAvail):
     global i
+    global cuadruplos
     oper2 = operands.pop()
     oper1 = operands.pop()
     result = tempAvail[i]
     operands.append(result)
 
-    cuadruplos.append("/")
-    cuadruplos.append(oper1)
-    cuadruplos.append(oper2)
-    cuadruplos.append(result)
+    row = np.array(['/', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
 
 def cuadruploMult(operands, tempAvail):
     global i
+    global cuadruplos
     oper2 = operands.pop()
     oper1 = operands.pop()
     result = tempAvail[i]
     operands.append(result)
 
-    cuadruplos.append("*")
-    cuadruplos.append(oper1)
-    cuadruplos.append(oper2)
-    cuadruplos.append(result)
+    row = np.array(['*', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
+
 #Cuadruplos logicos
 def cuadruploAnd(operands, tempAvail):
-    global j
-    oper2 = operands2.pop()
-    oper1 = operands2.pop()
-    result = tempAvail2[j]
-    operands2.append(result)
+    global i
+    global cuadruplos
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
 
-    cuadruplos2.append("AND")
-    cuadruplos2.append(oper1)
-    cuadruplos2.append(oper2)
-    cuadruplos2.append(result)
-    j=j+1
-    print("CuadruploAND")
-    print(cuadruplos2)
+    row = np.array(['AND', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1
+    
 
 def cuadruploOr(operands, tempAvail):
-    global j
-    oper2 = operands2.pop()
-    oper1 = operands2.pop()
-    result = tempAvail2[j]
-    operands2.append(result)
+    global i
+    global cuadruplos
 
-    cuadruplos2.append("OR")
-    cuadruplos2.append(oper1)
-    cuadruplos2.append(oper2)
-    cuadruplos2.append(result)
-    j=j+1
-    print("CuadruploOR")
-    print(cuadruplos2)
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+
+    row = np.array(['OR', oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1
 
 #Cuadruplos Comparativos
 def cuadruploComp(operands, tempAvail, comp):
-    global j
-    oper2 = operands2.pop()
-    oper1 = operands2.pop()
-    result = tempAvail2[j]
-    operands2.append(result)
+    global i
+    global cuadruplos
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
 
-    cuadruplos2.append(str(comp))
-    cuadruplos2.append(oper1)
-    cuadruplos2.append(oper2)
-    cuadruplos2.append(result)
-    j=j+1
-    print("CuadruploComparacion")
-    print(cuadruplos2)
+    row = np.array([str(comp), oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1
 
 def checkVarDefined(key):
     if key in tablaSimb.keys():
@@ -555,12 +598,48 @@ def checkVarDefined(key):
     else:
         return False
 
+#####################################
+####          Ciclos            ##### 
+#####################################
+#GOTOFALSO
+def generarGTF(R):
+    global cuadruplos , i
+    row = np.array(["gotoF", R, None,None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i = i + 1
+#GOTO
+def generarGTIiF():
+    global cuadruplos , i
+    row = np.array(["goto", None, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i = i + 1
+
+#GOTOINCONDICIONAL
+def generarGT(retorno):
+    global cuadruplos,i 
+    row = np.array(["goto", retorno, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i = i + 1
+
+#GotoFalso
+def rellenar(f, i):
+    print(f)
+    #cuadruplos[f+1][2] = i+1;
+    cuadruplos[f][2] = i;
+    print("cuadruplos " + str(f) + " cont: " + str(i))
+
+#GotoCondicional
+def rellenarFinal(fin, i):
+    print(fin)
+    cuadruplos[i-1][1] = fin;    
+
+
 
 
 #####################################
 ####          Pruebas           ##### 
 #####################################
-f = open('test2.txt', 'r')
+f = open('test.txt', 'r')
 s = f.readlines()
 
 # Function to convert  
@@ -576,9 +655,9 @@ def listToString(s):
 ##Correr el programa 
 while True:
     try:
-        print("\n")
+        #print("\n")
         s = listToString(s)
-        print(s+'\n')
+        #print(s+'\n')
         
     except EOFError:
         break
@@ -587,6 +666,8 @@ while True:
     break
 
 f.close()
+
+#np.delete(cuadruplos, (0), axis=0)
 
 #Imprimir tabla de simbolos
 print("\n#######  TABLA DE SIMBOLOS  ######")
@@ -600,12 +681,13 @@ print(operands)
 
 #Imprimir Cuadruplos
 print("\nCUADRUPLOS")
+cuadruplos = np.delete(cuadruplos, (0), axis=0)
 print(cuadruplos)
 
-#Imprimir Pila de operandos
-print("\nOPERANDS LOGICOS")
-print(operands2)
+#Imprimir Saltos
+print("\nSALTOS")
+print(saltos)
 
-#Imprimir Cuadruplos
-print("\nCUADRUPLOS LOGICOS")
-print(cuadruplos2)
+#Imprimir CONTADOR
+print("\nCONTADOR")
+print(i)
