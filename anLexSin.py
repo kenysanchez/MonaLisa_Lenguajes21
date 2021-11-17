@@ -3,6 +3,7 @@
 #Monalisa
 
 from ntpath import join
+import re
 from numpy.core.fromnumeric import shape
 from numpy.lib import npyio
 import ply.lex as lex
@@ -266,11 +267,12 @@ def p_S(p):
     S : LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
     S : whileAux EL whileAux2 Z whileAux3
     S : LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave 
-    S : FOR abreparentesis LET type ID asignacion K  puntoycoma EL puntoycoma ID suma num cierraparentesis abrellave Z cierrallave
+    S : FOR abreparentesis LET forAux asignacion forAux2  puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
     S : ID D asignacion E
     S : BREAK
       |
     '''
+#######IF     
 def p_ifAux(p):
     '''
     ifAux : abrellave
@@ -278,8 +280,7 @@ def p_ifAux(p):
     R = operands.pop()
     generarGTF(R)
     saltos.append(i-1)
-    print("SALTOS*************************")
-    print(saltos)
+
 
 def p_ifAux2(p):
     '''
@@ -288,9 +289,7 @@ def p_ifAux2(p):
     f = saltos.pop()
     generarGTI()
     saltos.append(i-1)
-    rellenar(f, i)
-    print("SALTOS*************************")
-    print(saltos)
+    rellenarGTF(f, i)
     
 
 def p_ifAux3(p):
@@ -298,14 +297,16 @@ def p_ifAux3(p):
     ifAux3 : cierrallave
     ''' 
     fin = saltos.pop()
-    rellenarFinal(fin, i)
-    print("--------------fin" + str(fin))
+    rellenarGTI(fin, i)
 
+#######WHILE
 def p_whileAux(p):
     '''
     whileAux : WHILE
     ''' 
     saltos.append(i)
+    print("SALTOS")
+    print(saltos)
 
 def p_whileAux2(p):
     '''
@@ -314,6 +315,8 @@ def p_whileAux2(p):
     R = operands.pop()
     generarGTF(R);
     saltos.append(i-1)
+    print("SALTOS")
+    print(saltos)
 
 def p_whileAux3(p):
     '''
@@ -321,8 +324,53 @@ def p_whileAux3(p):
     '''    
     f = saltos.pop()
     retorno = saltos.pop()
-    generarGT(retorno)
-    rellenar(f, i)
+    generarGTWhile(retorno)
+    rellenarGTF(f,i)
+
+#######FOR
+def p_forAux(p):
+    '''
+    forAux : type ID
+    '''    
+    tablaSimb[str(p[2])] = str(p[1])
+    #Anadimos id a oper
+    operands.append(p[2])
+    print("****************ADD OPERAND")
+    
+
+def p_forAux2(p):
+    '''
+    forAux2 : num
+    '''    
+    p[0] = p[1]
+    #Anadimos K a oper
+    operands.append(p[1])
+    cuadruploAsign(operands, tempAvail);
+
+def p_forAux3(p):
+    '''
+    forAux3 : EL
+    '''    
+    Tx = operands.pop()
+    generarGTF(Tx)
+    saltos.append(i-1)
+    
+def p_forAux4(p):
+    '''
+    forAux4 :  ID suma num 
+    '''    
+    operands.append(p[1])
+    operands.append(p[3])
+    cuadruploMas(operands, tempAvail)
+    
+def p_forAux5(p):
+    '''
+    forAux5 : cierrallave
+    '''    
+    retorno = saltos.pop()
+    generarGTWhile(retorno)
+    
+    rellenarGTF(retorno, i)
 
 
 #B-> { break } 
@@ -456,7 +504,11 @@ def p_Comp(p):
     '''
     Comp : J W J
     '''
+    print("AQUI CHECAMOS LOS OPERNADOS")
+    print(operands)
+    print(p[3])
     cuadruploComp(operands, tempAvail, p[2])
+    
 
 
 #J-> id (num,...)
@@ -464,9 +516,9 @@ def p_Comp(p):
 #J-> num
 def p_J(p):
     '''
+    J : num
     J : ID abreparentesis A cierraparentesis
     J : IDoux
-    J : num
     '''
 def p_IDoux(p):
     '''
@@ -595,6 +647,19 @@ def cuadruploComp(operands, tempAvail, comp):
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
 
+#Cuadruplos Comparativos
+def cuadruploAsign(operands, tempAvail):
+    global i
+    global cuadruplos
+    oper2 = operands.pop()
+    oper1 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
+
+    row = np.array(["=>", oper1, oper2, result])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1    
+
 def checkVarDefined(key):
     if key in tablaSimb.keys():
         return True    
@@ -619,20 +684,20 @@ def generarGTI():
     i = i + 1
 
 #GOTOINCONDICIONAL
-# def generarGT(retorno):
-#     global cuadruplos,i 
-#     row = np.array(["goto", retorno, None, None])  
-#     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
-#     i = i + 1
+def generarGTWhile(retorno):
+    global cuadruplos,i 
+    row = np.array(["goto", retorno, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i = i + 1
 
 #GotoFalso
-def rellenar(f, i):
+def rellenarGTF(f, i):
     print(f)
     cuadruplos[f+1][2] = i;
     print("cuadruplos " + str(f) + " cont: " + str(i))
 
 #GotoCondicional
-def rellenarFinal(fin, i):
+def rellenarGTI(fin, i):
     print(fin)
     cuadruplos[fin+1][1] = i;    
 
@@ -642,7 +707,7 @@ def rellenarFinal(fin, i):
 #####################################
 ####          Pruebas           ##### 
 #####################################
-f = open('test.txt', 'r')
+f = open('test2.txt', 'r')
 s = f.readlines()
 
 # Function to convert  

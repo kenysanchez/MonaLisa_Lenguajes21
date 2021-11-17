@@ -1,16 +1,17 @@
 Let int a => 1;
 Let int b => 2;
 Let int c => 3;
-
+Let int x => 3;
 
 begin;
 
-while(a>b) or (b<c){
-    while(a>b){
-    b => b+c;
+for(Let int k => 1; k > 3; k+1){
+    b => a + c;
+
+
+
+
+
+
 };
-};
-
-
-
 end;
