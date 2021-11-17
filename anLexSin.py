@@ -277,17 +277,20 @@ def p_ifAux(p):
     ''' 
     R = operands.pop()
     generarGTF(R)
-    saltos.append(i)
+    saltos.append(i-1)
+    print("SALTOS*************************")
+    print(saltos)
 
 def p_ifAux2(p):
     '''
     ifAux2 : abrellave
     ''' 
-    generarGTIiF()
     f = saltos.pop()
-    rellenar(f, i)
+    generarGTI()
     saltos.append(i-1)
-    print("*************************IFAUX2")
+    rellenar(f, i)
+    print("SALTOS*************************")
+    print(saltos)
     
 
 def p_ifAux3(p):
@@ -607,31 +610,31 @@ def generarGTF(R):
     row = np.array(["gotoF", R, None,None])  
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i = i + 1
-#GOTO
-def generarGTIiF():
+
+#GOTOVERDADERO
+def generarGTI():
     global cuadruplos , i
     row = np.array(["goto", None, None, None])  
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i = i + 1
 
 #GOTOINCONDICIONAL
-def generarGT(retorno):
-    global cuadruplos,i 
-    row = np.array(["goto", retorno, None, None])  
-    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
-    i = i + 1
+# def generarGT(retorno):
+#     global cuadruplos,i 
+#     row = np.array(["goto", retorno, None, None])  
+#     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+#     i = i + 1
 
 #GotoFalso
 def rellenar(f, i):
     print(f)
-    #cuadruplos[f+1][2] = i+1;
-    cuadruplos[f][2] = i;
+    cuadruplos[f+1][2] = i;
     print("cuadruplos " + str(f) + " cont: " + str(i))
 
 #GotoCondicional
 def rellenarFinal(fin, i):
     print(fin)
-    cuadruplos[i-1][1] = fin;    
+    cuadruplos[fin+1][1] = i;    
 
 
 

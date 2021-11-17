@@ -1,15 +1,25 @@
-Let int  cuco => 20;
-Let flt  yoshi => 100;
-Let int maya => 5;
+Let int x => 1;
+Let int z => 1;
+Let int g => 1;
+Let int d => 1;
+Let int e => 1;
+Let int p => 1;
+Let int f => 1;
+
+
 begin;
 
-if (cuco > yoshi) and (yoshi > maya) {
-    cuco => cuco*maya ;
+if (x < z){
+    x=> z;
+    
 }
 else{
-    yoshi => yoshi * laika;
-}
-
-print(cuco)
+    if (d > e){
+    d=>f+g;
+    }
+    else{
+    g=>p;
+    }; 
+};
 
 end;
