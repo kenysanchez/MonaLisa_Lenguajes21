@@ -5,7 +5,7 @@ Let int x => 3;
 
 begin;
 
-for(Let int k => 1; k > 3; k+1){
+for(Let int a => 1; a > 3; a+1){
     b => a + c;
 
 

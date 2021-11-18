@@ -353,7 +353,7 @@ def p_forAux3(p):
     '''    
     Tx = operands.pop()
     generarGTF(Tx)
-    saltos.append(i-1)
+    saltos.append(i-2)
     
 def p_forAux4(p):
     '''
@@ -370,7 +370,7 @@ def p_forAux5(p):
     retorno = saltos.pop()
     generarGTWhile(retorno)
     
-    rellenarGTF(retorno, i)
+    rellenarGTF(retorno+1, i)
 
 
 #B-> { break } 
@@ -516,20 +516,15 @@ def p_Comp(p):
 #J-> num
 def p_J(p):
     '''
-    J : num
     J : ID abreparentesis A cierraparentesis
     J : IDoux
     '''
 def p_IDoux(p):
     '''
     IDoux : ID
+    IDoux : num
     '''
-    if checkVarDefined(p[1]) ==  True:
-        operands.append(p[1])
-        print("****************ADD OPERAND")
-        #print(operands)
-    else:
-        print("VARIABLE NO DECLARADA")
+    operands.append(p[1])
 
 #W-> >=, <=, >, <, ==, !=
 def p_W(p):
