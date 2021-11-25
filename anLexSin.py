@@ -6,6 +6,7 @@ from ntpath import join
 import re
 from numpy.core.fromnumeric import shape
 from numpy.lib import npyio
+from numpy.typing import _256Bit
 import ply.lex as lex
 import ply.yacc as yacc
 import numpy as np
@@ -37,7 +38,14 @@ operands = []
 tempAvail = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20']
 cuadruplos = np.zeros(shape=(1,4))
 saltos = []
+variables = []
+valores = []
+tipo = []
+
+#tablaDeSimb = np.zeros(shape=(1,4))
+
 i = 0
+
 
 
 
@@ -189,26 +197,40 @@ nombre_var = ''
 #Programa-> V F Main 
 def p_Programa(p):
     '''
-    Programa : V F Main
+    Programa : VDummy F Main
     '''
     print("\t***Correcto***")
+
+def p_VDummy(p):
+    '''
+    VDummy : V
+    '''
+    i = 0
+    generarGTI()
+    print(cuadruplos)
 
 #V-> V Let id => K ; 
 #V-> V Let id => (A);
 def p_V(p):
     '''
-    V : V LET aux asignacion K puntoycoma
+    V : auxVarSimple
     V : V LET aux asignacion abreparentesis  A cierraparentesis puntoycoma
       |
     '''
 print("*************VAR DECLARADA")
 
+def p_auxVarSimple(p):
+    '''
+    auxVarSimple : V LET aux asignacion K puntoycoma
+    ''' 
+    valores.append(str(p[5]))
+
 def p_aux(p):
     '''
     aux : type ID
     ''' 
-    tablaSimb[str(p[2])] = str(p[1])
-    
+    tipo.append(str(p[1]))
+    variables.append(str(p[2]))
 
 #A -> num 
 #A -> A , num
@@ -219,21 +241,35 @@ def p_type(p):
     '''    
     p[0] = p[1]
     
-
 #A -> num 
 #A -> A , num
 def p_A(p):
     '''
     A : num
     A : A coma num
-    '''    
-
+    '''
+    
 #Main -> begin ; Z end ;
 def p_Main(p):
     '''
-    Main : BEGIN puntoycoma  Z END puntoycoma
+    Main : mainAux Z endAux
       |
     '''
+#######PROGRAM
+def p_mainAux(p):
+    '''
+    mainAux : BEGIN puntoycoma
+    '''
+    rellenarGTI(0,i)
+    print("rellenar")
+    print(i)
+
+def p_endAux(p):
+    '''
+    endAux : END puntoycoma
+    '''
+    generarFIN()
+
 #Z -> S ;
 #Z -> Z S ;
 def p_Z(p):
@@ -242,6 +278,7 @@ def p_Z(p):
     Z : Z S puntoycoma
     '''
     print("************Z")
+
 #k -> id
 #k -> num
 def p_K(p):
@@ -249,8 +286,8 @@ def p_K(p):
     K : ID
     K : num
     '''   
+    p[0] = p[1]
     
-
 #F-> F function id { S } 
 def p_F(p):
     '''
@@ -266,7 +303,7 @@ def p_S(p):
     S : PRINT abreparentesis M cierraparentesis
     S : LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
     S : whileAux EL whileAux2 Z whileAux3
-    S : LOOP abrellave Z abreparentesis EL cierraparentesis B cierrallave 
+    S : loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave 
     S : FOR abreparentesis LET forAux asignacion forAux2  puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
     S : ID D asignacion E
     S : BREAK
@@ -281,7 +318,6 @@ def p_ifAux(p):
     generarGTF(R)
     saltos.append(i-1)
 
-
 def p_ifAux2(p):
     '''
     ifAux2 : abrellave
@@ -290,7 +326,6 @@ def p_ifAux2(p):
     generarGTI()
     saltos.append(i-1)
     rellenarGTF(f, i)
-    
 
 def p_ifAux3(p):
     '''
@@ -336,7 +371,6 @@ def p_forAux(p):
     #Anadimos id a oper
     operands.append(p[2])
     print("****************ADD OPERAND")
-    
 
 def p_forAux2(p):
     '''
@@ -372,6 +406,13 @@ def p_forAux5(p):
     
     rellenarGTF(retorno+1, i)
 
+#######LOOP
+def p_loopAux(p):
+    '''
+    loopAux : LOOP
+    '''    
+    saltos.append(i)
+
 
 #B-> { break } 
 def p_B(p):
@@ -387,7 +428,6 @@ def p_M(p):
     M : comillasdobles K comillasdobles
     M : A
     '''
-
 
 #D -> (A) 
 def p_D(p):
@@ -417,7 +457,6 @@ def p_expResta(p):
     '''
     cuadruploMenos(operands, tempAvail)
 
-
 #T-> T * X
 #T-> T / X
 #T-> X
@@ -427,7 +466,6 @@ def p_T(p):
     T : expDiv
     T : X
     '''
-
 def p_expMult(p):
     '''
     expMult : T multiplicacion X
@@ -439,7 +477,6 @@ def p_expDiv(p):
     expDiv : T dividir X
     '''
     cuadruploDiv(operands, tempAvail)
-
 
 #X-> id
 #X-> id (H)
@@ -642,7 +679,7 @@ def cuadruploComp(operands, tempAvail, comp):
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
 
-#Cuadruplos Comparativos
+#Cuadruplos S
 def cuadruploAsign(operands, tempAvail):
     global i
     global cuadruplos
@@ -653,7 +690,22 @@ def cuadruploAsign(operands, tempAvail):
 
     row = np.array(["=>", oper1, oper2, result])  
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
-    i=i+1    
+    i=i+1   
+
+def cuadruploPrint(operands):
+    global i
+    global cuadruplos
+    row = np.array(["Print", None, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1   
+
+def cuadruploRead(operands):
+    global i
+    global cuadruplos
+    row = np.array(["Read", None, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1  
+
 
 def checkVarDefined(key):
     if key in tablaSimb.keys():
@@ -685,6 +737,14 @@ def generarGTWhile(retorno):
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i = i + 1
 
+#FINPROGRAMA
+def generarFIN():
+    global cuadruplos,i 
+    row = np.array(["FinPrograma", None, None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i = i + 1
+
+
 #GotoFalso
 def rellenarGTF(f, i):
     print(f)
@@ -695,6 +755,47 @@ def rellenarGTF(f, i):
 def rellenarGTI(fin, i):
     print(fin)
     cuadruplos[fin+1][1] = i;    
+
+#####################################
+####         EJECUCION          ##### 
+#####################################
+# PC = 0
+
+# while():
+#     cuadruplo = cuadruplos[PC]
+#     oc = cuadruplo[0]
+
+#     if oc == "+":
+#         cuadruplo[3] = cuadruplo[1] + cuadruplo[2]
+#         PC = PC + 1
+
+#     elif oc == "-":
+#         cuadruplo[3] = cuadruplo[1] - cuadruplo[2]
+#         PC = PC + 1
+
+#     elif oc == "/":
+#         cuadruplo[3] = cuadruplo[1] / cuadruplo[2]
+#         PC = PC + 1
+
+#     elif oc == "*":
+#         cuadruplo[3] = cuadruplo[1] * cuadruplo[2]
+#         PC = PC + 1
+
+#     elif oc == "FinPrograma":
+#         break 
+
+#     else:
+#         PC = cuadruplo[1]
+
+
+
+#####################################
+####   Variables dimensionadas  ##### 
+#####################################
+# def checksize():
+    
+#     return 
+
 
 
 
@@ -734,9 +835,10 @@ f.close()
 
 #Imprimir tabla de simbolos
 print("\n#######  TABLA DE SIMBOLOS  ######")
-tablaSimb_items = tablaSimb.items()
-for item in tablaSimb_items:
-    print(item)
+informacion = list(zip(tipo, valores))
+tablaDeSimb = dict(zip(variables, informacion))
+for variables, informacion in tablaDeSimb.items():
+    print('[{key}, {values}]'.format(key=variables, values=informacion))
 
 #Imprimir Pila de operandos
 print("\nOPERANDS")

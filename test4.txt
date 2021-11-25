@@ -1,0 +1,10 @@
+Let int x => 1;
+Let int z => 2;
+Let int g => 3;
+Let int d => 4;
+Let int e => 5;
+Let int p => 6;
+Let int f => 7;
+Let int ken => 5;
+Let int id => 6;
+Let int hola => 7;
