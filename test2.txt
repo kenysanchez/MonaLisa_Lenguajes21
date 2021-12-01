@@ -7,8 +7,7 @@ begin;
 
 a => 1;
 read(b);
-c => a * b;
-x => a - b;
+c => a + b;
 print(c);
 
 end;

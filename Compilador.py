@@ -197,8 +197,6 @@ def p_VDummy(p):
     '''
     i = 0
     generarGTI()
-    print(cuadruplos)
-
 
 ###VARIABLES
 def p_V(p):
@@ -292,7 +290,6 @@ def p_Z(p):
     Z : S puntoycoma
     Z : Z S puntoycoma
     '''
-    print("************Z")
 
 #k -> id
 #k -> num
@@ -477,7 +474,7 @@ def p_Asignacion(p):
     p[0] = p[1]
     #Anadimos K a oper
     operands.append(p[1])
-    operands.append(p[4])
+    
     cuadruploAsignS(operands, tempAvail)
 
 #D -> (A) 
@@ -538,9 +535,10 @@ def p_X(p):
     '''
     X : IDaux
     X : ID abreparentesis A cierraparentesis
-    X : num
+    X : NUMaux
     X : abreparentesis E cierraparentesis
     '''
+
 def p_IDaux(p):
     '''
     IDaux : ID
@@ -552,6 +550,13 @@ def p_IDaux(p):
     else:
         print("VARIABLE NO DECLARADA")
 
+def p_NUMaux(p):
+    '''
+    NUMaux : num
+    '''
+    operands.append(p[1])
+    print("****************ADD VALUE")
+   
 #EL-> TL
 #EL-> EL or TL
 def p_EL(p):
@@ -610,6 +615,8 @@ def p_IDoux(p):
     IDoux : ID
     IDoux : num
     '''
+    print("OPERANDO:")
+    print(p[1])
     operands.append(p[1])
 
 #W-> >=, <=, >, <, ==, !=
@@ -743,10 +750,8 @@ def cuadruploAsignS(operands, tempAvail):
     global cuadruplos
     oper1 = operands.pop()
     oper2 = operands.pop()
-    result = tempAvail[i]
-    operands.append(result)
 
-    row = np.array(["=>", result, oper2,  None])  
+    row = np.array(["=>", oper2, oper1,  None])  
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1  
 

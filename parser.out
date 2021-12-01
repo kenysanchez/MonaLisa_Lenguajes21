@@ -72,32 +72,33 @@ Rule 66    expMult -> T multiplicacion X
 Rule 67    expDiv -> T dividir X
 Rule 68    X -> IDaux
 Rule 69    X -> ID abreparentesis A cierraparentesis
-Rule 70    X -> num
+Rule 70    X -> NUMaux
 Rule 71    X -> abreparentesis E cierraparentesis
 Rule 72    IDaux -> ID
-Rule 73    EL -> AL
-Rule 74    EL -> orAux
-Rule 75    AL -> TL
-Rule 76    AL -> andAux
-Rule 77    orAux -> EL OR AL
-Rule 78    andAux -> AL AND TL
-Rule 79    TL -> abreparentesis EL cierraparentesis
-Rule 80    TL -> Comp
-Rule 81    Comp -> J W J
-Rule 82    J -> ID abreparentesis A cierraparentesis
-Rule 83    J -> IDoux
-Rule 84    IDoux -> ID
-Rule 85    IDoux -> num
-Rule 86    W -> mayorigual
-Rule 87    W -> menorigual
-Rule 88    W -> menor
-Rule 89    W -> mayor
-Rule 90    W -> igualque
-Rule 91    W -> diferenteque
+Rule 73    NUMaux -> num
+Rule 74    EL -> AL
+Rule 75    EL -> orAux
+Rule 76    AL -> TL
+Rule 77    AL -> andAux
+Rule 78    orAux -> EL OR AL
+Rule 79    andAux -> AL AND TL
+Rule 80    TL -> abreparentesis EL cierraparentesis
+Rule 81    TL -> Comp
+Rule 82    Comp -> J W J
+Rule 83    J -> ID abreparentesis A cierraparentesis
+Rule 84    J -> IDoux
+Rule 85    IDoux -> ID
+Rule 86    IDoux -> num
+Rule 87    W -> mayorigual
+Rule 88    W -> menorigual
+Rule 89    W -> menor
+Rule 90    W -> mayor
+Rule 91    W -> igualque
+Rule 92    W -> diferenteque
 
 Terminals, with rules where they appear
 
-AND                  : 78
+AND                  : 79
 BEGIN                : 16
 BREAK                : 33 51
 ELSE                 : 25 28
@@ -105,63 +106,64 @@ END                  : 17
 FLT                  : 10
 FOR                  : 31
 FUNCTION             : 22
-ID                   : 8 20 22 24 28 39 40 45 48 55 69 72 82 84
+ID                   : 8 20 22 24 28 39 40 45 48 55 69 72 83 85
 IF                   : 25 28
 INT                  : 9
 LET                  : 6 7 28 31
 LOOP                 : 50
-OR                   : 77
+OR                   : 78
 PRINT                : 27
 READ                 : 26
 WHILE                : 42
 abrellave            : 22 28 28 30 31 35 36 39 43 51
-abreparentesis       : 7 24 26 27 28 30 31 56 69 71 79 82
+abreparentesis       : 7 24 26 27 28 30 31 56 69 71 80 83
 asignacion           : 6 7 28 31 55
 cierrallave          : 22 25 28 28 30 37 39 44 49 51
-cierraparentesis     : 7 24 26 27 28 30 31 56 69 71 79 82
+cierraparentesis     : 7 24 26 27 28 30 31 56 69 71 80 83
 coma                 : 13
-diferenteque         : 91
+diferenteque         : 92
 dividir              : 67
 error                : 
-igualque             : 90
-mayor                : 89
-mayorigual           : 86
-menor                : 88
-menorigual           : 87
+igualque             : 91
+mayor                : 90
+mayorigual           : 87
+menor                : 89
+menorigual           : 88
 multiplicacion       : 66
-num                  : 11 13 21 46 48 70 85
+num                  : 11 13 21 46 48 73 86
 puntoycoma           : 6 7 16 17 18 19 31 31
 resta                : 62
 suma                 : 48 61
 
 Nonterminals, with rules where they appear
 
-A                    : 7 13 39 54 56 69 82
-AL                   : 73 77 78
+A                    : 7 13 39 54 56 69 83
+AL                   : 74 78 79
 Aaux                 : 12
 Asignacion           : 32
 B                    : 30
-Comp                 : 80
+Comp                 : 81
 D                    : 55
 E                    : 55 61 62 71
-EL                   : 25 28 29 30 47 77 79
+EL                   : 25 28 29 30 47 78 80
 F                    : 1 22
 IDaux                : 68
-IDoux                : 83
-J                    : 81 81
+IDoux                : 84
+J                    : 82 82
 K                    : 6 53
 M                    : 41
 Main                 : 1
+NUMaux               : 70
 Programa             : 0
 S                    : 18 19 22
 T                    : 60 61 62 66 67
-TL                   : 75 78
+TL                   : 76 79
 V                    : 2 6 7
 VDummy               : 1
-W                    : 81
+W                    : 82
 X                    : 65 66 67
 Z                    : 14 19 25 25 28 28 29 30 31
-andAux               : 76
+andAux               : 77
 auxVar               : 6 7
 auxVarArray          : 4
 auxVarSimple         : 3
@@ -180,7 +182,7 @@ ifAux2               : 25
 ifAux3               : 25
 loopAux              : 30
 mainAux              : 14
-orAux                : 74
+orAux                : 75
 printAux             : 27
 readAux              : 26
 readAux2             : 38
@@ -446,19 +448,19 @@ state 19
 state 20
 
     (25) S -> IF . EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
@@ -497,19 +499,19 @@ state 23
 state 24
 
     (29) S -> whileAux . EL whileAux2 Z whileAux3
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
@@ -704,7 +706,7 @@ state 40
 state 41
 
     (25) S -> IF EL . ifAux Z cierrallave ELSE ifAux2 Z ifAux3
-    (77) orAux -> EL . OR AL
+    (78) orAux -> EL . OR AL
     (35) ifAux -> . abrellave
 
     OR              shift and go to state 71
@@ -714,64 +716,64 @@ state 41
 
 state 42
 
-    (73) EL -> AL .
-    (78) andAux -> AL . AND TL
+    (74) EL -> AL .
+    (79) andAux -> AL . AND TL
 
-    OR              reduce using rule 73 (EL -> AL .)
-    abrellave       reduce using rule 73 (EL -> AL .)
-    cierraparentesis reduce using rule 73 (EL -> AL .)
-    puntoycoma      reduce using rule 73 (EL -> AL .)
+    OR              reduce using rule 74 (EL -> AL .)
+    abrellave       reduce using rule 74 (EL -> AL .)
+    cierraparentesis reduce using rule 74 (EL -> AL .)
+    puntoycoma      reduce using rule 74 (EL -> AL .)
     AND             shift and go to state 73
 
 
 state 43
 
-    (74) EL -> orAux .
+    (75) EL -> orAux .
 
-    OR              reduce using rule 74 (EL -> orAux .)
-    abrellave       reduce using rule 74 (EL -> orAux .)
-    cierraparentesis reduce using rule 74 (EL -> orAux .)
-    puntoycoma      reduce using rule 74 (EL -> orAux .)
+    OR              reduce using rule 75 (EL -> orAux .)
+    abrellave       reduce using rule 75 (EL -> orAux .)
+    cierraparentesis reduce using rule 75 (EL -> orAux .)
+    puntoycoma      reduce using rule 75 (EL -> orAux .)
 
 
 state 44
 
-    (75) AL -> TL .
+    (76) AL -> TL .
 
-    AND             reduce using rule 75 (AL -> TL .)
-    OR              reduce using rule 75 (AL -> TL .)
-    abrellave       reduce using rule 75 (AL -> TL .)
-    cierraparentesis reduce using rule 75 (AL -> TL .)
-    puntoycoma      reduce using rule 75 (AL -> TL .)
+    AND             reduce using rule 76 (AL -> TL .)
+    OR              reduce using rule 76 (AL -> TL .)
+    abrellave       reduce using rule 76 (AL -> TL .)
+    cierraparentesis reduce using rule 76 (AL -> TL .)
+    puntoycoma      reduce using rule 76 (AL -> TL .)
 
 
 state 45
 
-    (76) AL -> andAux .
+    (77) AL -> andAux .
 
-    AND             reduce using rule 76 (AL -> andAux .)
-    OR              reduce using rule 76 (AL -> andAux .)
-    abrellave       reduce using rule 76 (AL -> andAux .)
-    cierraparentesis reduce using rule 76 (AL -> andAux .)
-    puntoycoma      reduce using rule 76 (AL -> andAux .)
+    AND             reduce using rule 77 (AL -> andAux .)
+    OR              reduce using rule 77 (AL -> andAux .)
+    abrellave       reduce using rule 77 (AL -> andAux .)
+    cierraparentesis reduce using rule 77 (AL -> andAux .)
+    puntoycoma      reduce using rule 77 (AL -> andAux .)
 
 
 state 46
 
-    (79) TL -> abreparentesis . EL cierraparentesis
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (80) TL -> abreparentesis . EL cierraparentesis
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
@@ -788,24 +790,24 @@ state 46
 
 state 47
 
-    (80) TL -> Comp .
+    (81) TL -> Comp .
 
-    AND             reduce using rule 80 (TL -> Comp .)
-    OR              reduce using rule 80 (TL -> Comp .)
-    abrellave       reduce using rule 80 (TL -> Comp .)
-    cierraparentesis reduce using rule 80 (TL -> Comp .)
-    puntoycoma      reduce using rule 80 (TL -> Comp .)
+    AND             reduce using rule 81 (TL -> Comp .)
+    OR              reduce using rule 81 (TL -> Comp .)
+    abrellave       reduce using rule 81 (TL -> Comp .)
+    cierraparentesis reduce using rule 81 (TL -> Comp .)
+    puntoycoma      reduce using rule 81 (TL -> Comp .)
 
 
 state 48
 
-    (81) Comp -> J . W J
-    (86) W -> . mayorigual
-    (87) W -> . menorigual
-    (88) W -> . menor
-    (89) W -> . mayor
-    (90) W -> . igualque
-    (91) W -> . diferenteque
+    (82) Comp -> J . W J
+    (87) W -> . mayorigual
+    (88) W -> . menorigual
+    (89) W -> . menor
+    (90) W -> . mayor
+    (91) W -> . igualque
+    (92) W -> . diferenteque
 
     mayorigual      shift and go to state 76
     menorigual      shift and go to state 77
@@ -818,55 +820,55 @@ state 48
 
 state 49
 
-    (82) J -> ID . abreparentesis A cierraparentesis
-    (84) IDoux -> ID .
+    (83) J -> ID . abreparentesis A cierraparentesis
+    (85) IDoux -> ID .
 
     abreparentesis  shift and go to state 82
-    mayorigual      reduce using rule 84 (IDoux -> ID .)
-    menorigual      reduce using rule 84 (IDoux -> ID .)
-    menor           reduce using rule 84 (IDoux -> ID .)
-    mayor           reduce using rule 84 (IDoux -> ID .)
-    igualque        reduce using rule 84 (IDoux -> ID .)
-    diferenteque    reduce using rule 84 (IDoux -> ID .)
-    AND             reduce using rule 84 (IDoux -> ID .)
-    OR              reduce using rule 84 (IDoux -> ID .)
-    abrellave       reduce using rule 84 (IDoux -> ID .)
-    cierraparentesis reduce using rule 84 (IDoux -> ID .)
-    puntoycoma      reduce using rule 84 (IDoux -> ID .)
+    mayorigual      reduce using rule 85 (IDoux -> ID .)
+    menorigual      reduce using rule 85 (IDoux -> ID .)
+    menor           reduce using rule 85 (IDoux -> ID .)
+    mayor           reduce using rule 85 (IDoux -> ID .)
+    igualque        reduce using rule 85 (IDoux -> ID .)
+    diferenteque    reduce using rule 85 (IDoux -> ID .)
+    AND             reduce using rule 85 (IDoux -> ID .)
+    OR              reduce using rule 85 (IDoux -> ID .)
+    abrellave       reduce using rule 85 (IDoux -> ID .)
+    cierraparentesis reduce using rule 85 (IDoux -> ID .)
+    puntoycoma      reduce using rule 85 (IDoux -> ID .)
 
 
 state 50
 
-    (83) J -> IDoux .
+    (84) J -> IDoux .
 
-    mayorigual      reduce using rule 83 (J -> IDoux .)
-    menorigual      reduce using rule 83 (J -> IDoux .)
-    menor           reduce using rule 83 (J -> IDoux .)
-    mayor           reduce using rule 83 (J -> IDoux .)
-    igualque        reduce using rule 83 (J -> IDoux .)
-    diferenteque    reduce using rule 83 (J -> IDoux .)
-    AND             reduce using rule 83 (J -> IDoux .)
-    OR              reduce using rule 83 (J -> IDoux .)
-    abrellave       reduce using rule 83 (J -> IDoux .)
-    cierraparentesis reduce using rule 83 (J -> IDoux .)
-    puntoycoma      reduce using rule 83 (J -> IDoux .)
+    mayorigual      reduce using rule 84 (J -> IDoux .)
+    menorigual      reduce using rule 84 (J -> IDoux .)
+    menor           reduce using rule 84 (J -> IDoux .)
+    mayor           reduce using rule 84 (J -> IDoux .)
+    igualque        reduce using rule 84 (J -> IDoux .)
+    diferenteque    reduce using rule 84 (J -> IDoux .)
+    AND             reduce using rule 84 (J -> IDoux .)
+    OR              reduce using rule 84 (J -> IDoux .)
+    abrellave       reduce using rule 84 (J -> IDoux .)
+    cierraparentesis reduce using rule 84 (J -> IDoux .)
+    puntoycoma      reduce using rule 84 (J -> IDoux .)
 
 
 state 51
 
-    (85) IDoux -> num .
+    (86) IDoux -> num .
 
-    mayorigual      reduce using rule 85 (IDoux -> num .)
-    menorigual      reduce using rule 85 (IDoux -> num .)
-    menor           reduce using rule 85 (IDoux -> num .)
-    mayor           reduce using rule 85 (IDoux -> num .)
-    igualque        reduce using rule 85 (IDoux -> num .)
-    diferenteque    reduce using rule 85 (IDoux -> num .)
-    AND             reduce using rule 85 (IDoux -> num .)
-    OR              reduce using rule 85 (IDoux -> num .)
-    abrellave       reduce using rule 85 (IDoux -> num .)
-    cierraparentesis reduce using rule 85 (IDoux -> num .)
-    puntoycoma      reduce using rule 85 (IDoux -> num .)
+    mayorigual      reduce using rule 86 (IDoux -> num .)
+    menorigual      reduce using rule 86 (IDoux -> num .)
+    menor           reduce using rule 86 (IDoux -> num .)
+    mayor           reduce using rule 86 (IDoux -> num .)
+    igualque        reduce using rule 86 (IDoux -> num .)
+    diferenteque    reduce using rule 86 (IDoux -> num .)
+    AND             reduce using rule 86 (IDoux -> num .)
+    OR              reduce using rule 86 (IDoux -> num .)
+    abrellave       reduce using rule 86 (IDoux -> num .)
+    cierraparentesis reduce using rule 86 (IDoux -> num .)
+    puntoycoma      reduce using rule 86 (IDoux -> num .)
 
 
 state 52
@@ -912,7 +914,7 @@ state 54
 state 55
 
     (29) S -> whileAux EL . whileAux2 Z whileAux3
-    (77) orAux -> EL . OR AL
+    (78) orAux -> EL . OR AL
     (43) whileAux2 -> . abrellave
 
     OR              shift and go to state 71
@@ -1081,13 +1083,14 @@ state 69
     (67) expDiv -> . T dividir X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
     E                              shift and go to state 102
     expSuma                        shift and go to state 103
@@ -1097,6 +1100,7 @@ state 69
     expDiv                         shift and go to state 107
     X                              shift and go to state 108
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
 state 70
 
@@ -1129,7 +1133,7 @@ state 70
     WHILE           shift and go to state 29
     LOOP            shift and go to state 30
 
-    Z                              shift and go to state 112
+    Z                              shift and go to state 113
     S                              shift and go to state 18
     whileAux                       shift and go to state 24
     loopAux                        shift and go to state 25
@@ -1137,23 +1141,23 @@ state 70
 
 state 71
 
-    (77) orAux -> EL OR . AL
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (78) orAux -> EL OR . AL
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    AL                             shift and go to state 113
+    AL                             shift and go to state 114
     TL                             shift and go to state 44
     andAux                         shift and go to state 45
     Comp                           shift and go to state 47
@@ -1178,112 +1182,112 @@ state 72
 
 state 73
 
-    (78) andAux -> AL AND . TL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (79) andAux -> AL AND . TL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    TL                             shift and go to state 114
+    TL                             shift and go to state 115
     Comp                           shift and go to state 47
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
 state 74
 
-    (79) TL -> abreparentesis EL . cierraparentesis
-    (77) orAux -> EL . OR AL
+    (80) TL -> abreparentesis EL . cierraparentesis
+    (78) orAux -> EL . OR AL
 
-    cierraparentesis shift and go to state 115
+    cierraparentesis shift and go to state 116
     OR              shift and go to state 71
 
 
 state 75
 
-    (81) Comp -> J W . J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (82) Comp -> J W . J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    J                              shift and go to state 116
+    J                              shift and go to state 117
     IDoux                          shift and go to state 50
 
 state 76
 
-    (86) W -> mayorigual .
+    (87) W -> mayorigual .
 
-    ID              reduce using rule 86 (W -> mayorigual .)
-    num             reduce using rule 86 (W -> mayorigual .)
+    ID              reduce using rule 87 (W -> mayorigual .)
+    num             reduce using rule 87 (W -> mayorigual .)
 
 
 state 77
 
-    (87) W -> menorigual .
+    (88) W -> menorigual .
 
-    ID              reduce using rule 87 (W -> menorigual .)
-    num             reduce using rule 87 (W -> menorigual .)
+    ID              reduce using rule 88 (W -> menorigual .)
+    num             reduce using rule 88 (W -> menorigual .)
 
 
 state 78
 
-    (88) W -> menor .
+    (89) W -> menor .
 
-    ID              reduce using rule 88 (W -> menor .)
-    num             reduce using rule 88 (W -> menor .)
+    ID              reduce using rule 89 (W -> menor .)
+    num             reduce using rule 89 (W -> menor .)
 
 
 state 79
 
-    (89) W -> mayor .
+    (90) W -> mayor .
 
-    ID              reduce using rule 89 (W -> mayor .)
-    num             reduce using rule 89 (W -> mayor .)
+    ID              reduce using rule 90 (W -> mayor .)
+    num             reduce using rule 90 (W -> mayor .)
 
 
 state 80
 
-    (90) W -> igualque .
+    (91) W -> igualque .
 
-    ID              reduce using rule 90 (W -> igualque .)
-    num             reduce using rule 90 (W -> igualque .)
+    ID              reduce using rule 91 (W -> igualque .)
+    num             reduce using rule 91 (W -> igualque .)
 
 
 state 81
 
-    (91) W -> diferenteque .
+    (92) W -> diferenteque .
 
-    ID              reduce using rule 91 (W -> diferenteque .)
-    num             reduce using rule 91 (W -> diferenteque .)
+    ID              reduce using rule 92 (W -> diferenteque .)
+    num             reduce using rule 92 (W -> diferenteque .)
 
 
 state 82
 
-    (82) J -> ID abreparentesis . A cierraparentesis
+    (83) J -> ID abreparentesis . A cierraparentesis
     (11) A -> . num
     (12) A -> . Aaux
     (13) Aaux -> . A coma num
 
     num             shift and go to state 67
 
-    A                              shift and go to state 117
+    A                              shift and go to state 118
     Aaux                           shift and go to state 68
 
 state 83
 
     (26) S -> READ abreparentesis readAux . cierraparentesis
 
-    cierraparentesis shift and go to state 118
+    cierraparentesis shift and go to state 119
 
 
 state 84
@@ -1298,7 +1302,7 @@ state 85
     (39) readAux -> ID . abrellave A cierrallave
     (40) readAux2 -> ID .
 
-    abrellave       shift and go to state 119
+    abrellave       shift and go to state 120
     cierraparentesis reduce using rule 40 (readAux2 -> ID .)
 
 
@@ -1306,7 +1310,7 @@ state 86
 
     (27) S -> PRINT abreparentesis printAux . cierraparentesis
 
-    cierraparentesis shift and go to state 120
+    cierraparentesis shift and go to state 121
 
 
 state 87
@@ -1348,7 +1352,7 @@ state 91
 
     (28) S -> LET ID asignacion . IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
-    IF              shift and go to state 121
+    IF              shift and go to state 122
 
 
 state 92
@@ -1383,7 +1387,7 @@ state 92
     LOOP            shift and go to state 30
 
     whileAux                       shift and go to state 24
-    Z                              shift and go to state 122
+    Z                              shift and go to state 123
     S                              shift and go to state 18
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
@@ -1423,7 +1427,7 @@ state 94
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    abreparentesis  shift and go to state 123
+    abreparentesis  shift and go to state 124
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -1450,8 +1454,8 @@ state 95
     INT             shift and go to state 14
     FLT             shift and go to state 15
 
-    forAux                         shift and go to state 124
-    type                           shift and go to state 125
+    forAux                         shift and go to state 125
+    type                           shift and go to state 126
 
 state 96
 
@@ -1468,7 +1472,7 @@ state 97
     (7) auxVarArray -> V LET auxVar asignacion abreparentesis A . cierraparentesis puntoycoma
     (13) Aaux -> A . coma num
 
-    cierraparentesis shift and go to state 126
+    cierraparentesis shift and go to state 127
     coma            shift and go to state 100
 
 
@@ -1492,7 +1496,7 @@ state 100
 
     (13) Aaux -> A coma . num
 
-    num             shift and go to state 127
+    num             shift and go to state 128
 
 
 state 101
@@ -1500,7 +1504,7 @@ state 101
     (69) X -> ID . abreparentesis A cierraparentesis
     (72) IDaux -> ID .
 
-    abreparentesis  shift and go to state 128
+    abreparentesis  shift and go to state 129
     multiplicacion  reduce using rule 72 (IDaux -> ID .)
     dividir         reduce using rule 72 (IDaux -> ID .)
     suma            reduce using rule 72 (IDaux -> ID .)
@@ -1518,8 +1522,8 @@ state 102
 
     puntoycoma      reduce using rule 55 (Asignacion -> ID D asignacion E .)
     cierrallave     reduce using rule 55 (Asignacion -> ID D asignacion E .)
-    suma            shift and go to state 129
-    resta           shift and go to state 130
+    suma            shift and go to state 130
+    resta           shift and go to state 131
 
 
 state 103
@@ -1555,8 +1559,8 @@ state 105
     puntoycoma      reduce using rule 60 (E -> T .)
     cierrallave     reduce using rule 60 (E -> T .)
     cierraparentesis reduce using rule 60 (E -> T .)
-    multiplicacion  shift and go to state 131
-    dividir         shift and go to state 132
+    multiplicacion  shift and go to state 132
+    dividir         shift and go to state 133
 
 
 state 106
@@ -1626,15 +1630,16 @@ state 110
     (67) expDiv -> . T dividir X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
-    E                              shift and go to state 133
+    E                              shift and go to state 134
     expSuma                        shift and go to state 103
     expResta                       shift and go to state 104
     T                              shift and go to state 105
@@ -1642,21 +1647,35 @@ state 110
     expDiv                         shift and go to state 107
     X                              shift and go to state 108
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
 state 111
 
-    (70) X -> num .
+    (70) X -> NUMaux .
 
-    multiplicacion  reduce using rule 70 (X -> num .)
-    dividir         reduce using rule 70 (X -> num .)
-    suma            reduce using rule 70 (X -> num .)
-    resta           reduce using rule 70 (X -> num .)
-    puntoycoma      reduce using rule 70 (X -> num .)
-    cierrallave     reduce using rule 70 (X -> num .)
-    cierraparentesis reduce using rule 70 (X -> num .)
+    multiplicacion  reduce using rule 70 (X -> NUMaux .)
+    dividir         reduce using rule 70 (X -> NUMaux .)
+    suma            reduce using rule 70 (X -> NUMaux .)
+    resta           reduce using rule 70 (X -> NUMaux .)
+    puntoycoma      reduce using rule 70 (X -> NUMaux .)
+    cierrallave     reduce using rule 70 (X -> NUMaux .)
+    cierraparentesis reduce using rule 70 (X -> NUMaux .)
 
 
 state 112
+
+    (73) NUMaux -> num .
+
+    multiplicacion  reduce using rule 73 (NUMaux -> num .)
+    dividir         reduce using rule 73 (NUMaux -> num .)
+    suma            reduce using rule 73 (NUMaux -> num .)
+    resta           reduce using rule 73 (NUMaux -> num .)
+    puntoycoma      reduce using rule 73 (NUMaux -> num .)
+    cierrallave     reduce using rule 73 (NUMaux -> num .)
+    cierraparentesis reduce using rule 73 (NUMaux -> num .)
+
+
+state 113
 
     (25) S -> IF EL ifAux Z . cierrallave ELSE ifAux2 Z ifAux3
     (19) Z -> Z . S puntoycoma
@@ -1675,7 +1694,7 @@ state 112
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 134
+    cierrallave     shift and go to state 135
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -1692,61 +1711,61 @@ state 112
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 113
-
-    (77) orAux -> EL OR AL .
-    (78) andAux -> AL . AND TL
-
-    OR              reduce using rule 77 (orAux -> EL OR AL .)
-    abrellave       reduce using rule 77 (orAux -> EL OR AL .)
-    cierraparentesis reduce using rule 77 (orAux -> EL OR AL .)
-    puntoycoma      reduce using rule 77 (orAux -> EL OR AL .)
-    AND             shift and go to state 73
-
-
 state 114
 
-    (78) andAux -> AL AND TL .
+    (78) orAux -> EL OR AL .
+    (79) andAux -> AL . AND TL
 
-    AND             reduce using rule 78 (andAux -> AL AND TL .)
-    OR              reduce using rule 78 (andAux -> AL AND TL .)
-    abrellave       reduce using rule 78 (andAux -> AL AND TL .)
-    cierraparentesis reduce using rule 78 (andAux -> AL AND TL .)
-    puntoycoma      reduce using rule 78 (andAux -> AL AND TL .)
+    OR              reduce using rule 78 (orAux -> EL OR AL .)
+    abrellave       reduce using rule 78 (orAux -> EL OR AL .)
+    cierraparentesis reduce using rule 78 (orAux -> EL OR AL .)
+    puntoycoma      reduce using rule 78 (orAux -> EL OR AL .)
+    AND             shift and go to state 73
 
 
 state 115
 
-    (79) TL -> abreparentesis EL cierraparentesis .
+    (79) andAux -> AL AND TL .
 
-    AND             reduce using rule 79 (TL -> abreparentesis EL cierraparentesis .)
-    OR              reduce using rule 79 (TL -> abreparentesis EL cierraparentesis .)
-    abrellave       reduce using rule 79 (TL -> abreparentesis EL cierraparentesis .)
-    cierraparentesis reduce using rule 79 (TL -> abreparentesis EL cierraparentesis .)
-    puntoycoma      reduce using rule 79 (TL -> abreparentesis EL cierraparentesis .)
+    AND             reduce using rule 79 (andAux -> AL AND TL .)
+    OR              reduce using rule 79 (andAux -> AL AND TL .)
+    abrellave       reduce using rule 79 (andAux -> AL AND TL .)
+    cierraparentesis reduce using rule 79 (andAux -> AL AND TL .)
+    puntoycoma      reduce using rule 79 (andAux -> AL AND TL .)
 
 
 state 116
 
-    (81) Comp -> J W J .
+    (80) TL -> abreparentesis EL cierraparentesis .
 
-    AND             reduce using rule 81 (Comp -> J W J .)
-    OR              reduce using rule 81 (Comp -> J W J .)
-    abrellave       reduce using rule 81 (Comp -> J W J .)
-    cierraparentesis reduce using rule 81 (Comp -> J W J .)
-    puntoycoma      reduce using rule 81 (Comp -> J W J .)
+    AND             reduce using rule 80 (TL -> abreparentesis EL cierraparentesis .)
+    OR              reduce using rule 80 (TL -> abreparentesis EL cierraparentesis .)
+    abrellave       reduce using rule 80 (TL -> abreparentesis EL cierraparentesis .)
+    cierraparentesis reduce using rule 80 (TL -> abreparentesis EL cierraparentesis .)
+    puntoycoma      reduce using rule 80 (TL -> abreparentesis EL cierraparentesis .)
 
 
 state 117
 
-    (82) J -> ID abreparentesis A . cierraparentesis
-    (13) Aaux -> A . coma num
+    (82) Comp -> J W J .
 
-    cierraparentesis shift and go to state 135
-    coma            shift and go to state 100
+    AND             reduce using rule 82 (Comp -> J W J .)
+    OR              reduce using rule 82 (Comp -> J W J .)
+    abrellave       reduce using rule 82 (Comp -> J W J .)
+    cierraparentesis reduce using rule 82 (Comp -> J W J .)
+    puntoycoma      reduce using rule 82 (Comp -> J W J .)
 
 
 state 118
+
+    (83) J -> ID abreparentesis A . cierraparentesis
+    (13) Aaux -> A . coma num
+
+    cierraparentesis shift and go to state 136
+    coma            shift and go to state 100
+
+
+state 119
 
     (26) S -> READ abreparentesis readAux cierraparentesis .
 
@@ -1754,7 +1773,7 @@ state 118
     cierrallave     reduce using rule 26 (S -> READ abreparentesis readAux cierraparentesis .)
 
 
-state 119
+state 120
 
     (39) readAux -> ID abrellave . A cierrallave
     (11) A -> . num
@@ -1763,10 +1782,10 @@ state 119
 
     num             shift and go to state 67
 
-    A                              shift and go to state 136
+    A                              shift and go to state 137
     Aaux                           shift and go to state 68
 
-state 120
+state 121
 
     (27) S -> PRINT abreparentesis printAux cierraparentesis .
 
@@ -1774,14 +1793,14 @@ state 120
     cierrallave     reduce using rule 27 (S -> PRINT abreparentesis printAux cierraparentesis .)
 
 
-state 121
+state 122
 
     (28) S -> LET ID asignacion IF . abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
 
-    abreparentesis  shift and go to state 137
+    abreparentesis  shift and go to state 138
 
 
-state 122
+state 123
 
     (29) S -> whileAux EL whileAux2 Z . whileAux3
     (19) Z -> Z . S puntoycoma
@@ -1801,7 +1820,7 @@ state 122
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 139
+    cierrallave     shift and go to state 140
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -1814,33 +1833,33 @@ state 122
     LOOP            shift and go to state 30
 
     whileAux                       shift and go to state 24
-    whileAux3                      shift and go to state 138
+    whileAux3                      shift and go to state 139
     S                              shift and go to state 36
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 123
+state 124
 
     (30) S -> loopAux abrellave Z abreparentesis . EL cierraparentesis B cierrallave
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    EL                             shift and go to state 140
+    EL                             shift and go to state 141
     AL                             shift and go to state 42
     orAux                          shift and go to state 43
     TL                             shift and go to state 44
@@ -1849,28 +1868,28 @@ state 123
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
-state 124
+state 125
 
     (31) S -> FOR abreparentesis LET forAux . asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
 
-    asignacion      shift and go to state 141
-
-
-state 125
-
-    (45) forAux -> type . ID
-
-    ID              shift and go to state 142
+    asignacion      shift and go to state 142
 
 
 state 126
 
-    (7) auxVarArray -> V LET auxVar asignacion abreparentesis A cierraparentesis . puntoycoma
+    (45) forAux -> type . ID
 
-    puntoycoma      shift and go to state 143
+    ID              shift and go to state 143
 
 
 state 127
+
+    (7) auxVarArray -> V LET auxVar asignacion abreparentesis A cierraparentesis . puntoycoma
+
+    puntoycoma      shift and go to state 144
+
+
+state 128
 
     (13) Aaux -> A coma num .
 
@@ -1879,7 +1898,7 @@ state 127
     cierrallave     reduce using rule 13 (Aaux -> A coma num .)
 
 
-state 128
+state 129
 
     (69) X -> ID abreparentesis . A cierraparentesis
     (11) A -> . num
@@ -1888,10 +1907,10 @@ state 128
 
     num             shift and go to state 67
 
-    A                              shift and go to state 144
+    A                              shift and go to state 145
     Aaux                           shift and go to state 68
 
-state 129
+state 130
 
     (61) expSuma -> E suma . T
     (63) T -> . expMult
@@ -1901,21 +1920,23 @@ state 129
     (67) expDiv -> . T dividir X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
-    T                              shift and go to state 145
+    T                              shift and go to state 146
     expMult                        shift and go to state 106
     expDiv                         shift and go to state 107
     X                              shift and go to state 108
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
-state 130
+state 131
 
     (62) expResta -> E resta . T
     (63) T -> . expMult
@@ -1925,118 +1946,124 @@ state 130
     (67) expDiv -> . T dividir X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
-    T                              shift and go to state 146
+    T                              shift and go to state 147
     expMult                        shift and go to state 106
     expDiv                         shift and go to state 107
     X                              shift and go to state 108
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
-state 131
+state 132
 
     (66) expMult -> T multiplicacion . X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
-    X                              shift and go to state 147
+    X                              shift and go to state 148
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
-state 132
+state 133
 
     (67) expDiv -> T dividir . X
     (68) X -> . IDaux
     (69) X -> . ID abreparentesis A cierraparentesis
-    (70) X -> . num
+    (70) X -> . NUMaux
     (71) X -> . abreparentesis E cierraparentesis
     (72) IDaux -> . ID
+    (73) NUMaux -> . num
 
     ID              shift and go to state 101
-    num             shift and go to state 111
     abreparentesis  shift and go to state 110
+    num             shift and go to state 112
 
-    X                              shift and go to state 148
+    X                              shift and go to state 149
     IDaux                          shift and go to state 109
+    NUMaux                         shift and go to state 111
 
-state 133
+state 134
 
     (71) X -> abreparentesis E . cierraparentesis
     (61) expSuma -> E . suma T
     (62) expResta -> E . resta T
 
-    cierraparentesis shift and go to state 149
-    suma            shift and go to state 129
-    resta           shift and go to state 130
-
-
-state 134
-
-    (25) S -> IF EL ifAux Z cierrallave . ELSE ifAux2 Z ifAux3
-
-    ELSE            shift and go to state 150
+    cierraparentesis shift and go to state 150
+    suma            shift and go to state 130
+    resta           shift and go to state 131
 
 
 state 135
 
-    (82) J -> ID abreparentesis A cierraparentesis .
+    (25) S -> IF EL ifAux Z cierrallave . ELSE ifAux2 Z ifAux3
 
-    mayorigual      reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    menorigual      reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    menor           reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    mayor           reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    igualque        reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    diferenteque    reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    AND             reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    OR              reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    abrellave       reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    cierraparentesis reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
-    puntoycoma      reduce using rule 82 (J -> ID abreparentesis A cierraparentesis .)
+    ELSE            shift and go to state 151
 
 
 state 136
 
-    (39) readAux -> ID abrellave A . cierrallave
-    (13) Aaux -> A . coma num
+    (83) J -> ID abreparentesis A cierraparentesis .
 
-    cierrallave     shift and go to state 151
-    coma            shift and go to state 100
+    mayorigual      reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    menorigual      reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    menor           reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    mayor           reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    igualque        reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    diferenteque    reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    AND             reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    OR              reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    abrellave       reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    cierraparentesis reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
+    puntoycoma      reduce using rule 83 (J -> ID abreparentesis A cierraparentesis .)
 
 
 state 137
 
+    (39) readAux -> ID abrellave A . cierrallave
+    (13) Aaux -> A . coma num
+
+    cierrallave     shift and go to state 152
+    coma            shift and go to state 100
+
+
+state 138
+
     (28) S -> LET ID asignacion IF abreparentesis . EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    EL                             shift and go to state 152
+    EL                             shift and go to state 153
     AL                             shift and go to state 42
     orAux                          shift and go to state 43
     TL                             shift and go to state 44
@@ -2045,7 +2072,7 @@ state 137
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
-state 138
+state 139
 
     (29) S -> whileAux EL whileAux2 Z whileAux3 .
 
@@ -2053,7 +2080,7 @@ state 138
     cierrallave     reduce using rule 29 (S -> whileAux EL whileAux2 Z whileAux3 .)
 
 
-state 139
+state 140
 
     (44) whileAux3 -> cierrallave .
 
@@ -2061,32 +2088,32 @@ state 139
     cierrallave     reduce using rule 44 (whileAux3 -> cierrallave .)
 
 
-state 140
+state 141
 
     (30) S -> loopAux abrellave Z abreparentesis EL . cierraparentesis B cierrallave
-    (77) orAux -> EL . OR AL
+    (78) orAux -> EL . OR AL
 
-    cierraparentesis shift and go to state 153
+    cierraparentesis shift and go to state 154
     OR              shift and go to state 71
 
 
-state 141
+state 142
 
     (31) S -> FOR abreparentesis LET forAux asignacion . forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
     (46) forAux2 -> . num
 
-    num             shift and go to state 155
+    num             shift and go to state 156
 
-    forAux2                        shift and go to state 154
+    forAux2                        shift and go to state 155
 
-state 142
+state 143
 
     (45) forAux -> type ID .
 
     asignacion      reduce using rule 45 (forAux -> type ID .)
 
 
-state 143
+state 144
 
     (7) auxVarArray -> V LET auxVar asignacion abreparentesis A cierraparentesis puntoycoma .
 
@@ -2096,16 +2123,16 @@ state 143
     $end            reduce using rule 7 (auxVarArray -> V LET auxVar asignacion abreparentesis A cierraparentesis puntoycoma .)
 
 
-state 144
+state 145
 
     (69) X -> ID abreparentesis A . cierraparentesis
     (13) Aaux -> A . coma num
 
-    cierraparentesis shift and go to state 156
+    cierraparentesis shift and go to state 157
     coma            shift and go to state 100
 
 
-state 145
+state 146
 
     (61) expSuma -> E suma T .
     (66) expMult -> T . multiplicacion X
@@ -2116,11 +2143,11 @@ state 145
     puntoycoma      reduce using rule 61 (expSuma -> E suma T .)
     cierrallave     reduce using rule 61 (expSuma -> E suma T .)
     cierraparentesis reduce using rule 61 (expSuma -> E suma T .)
-    multiplicacion  shift and go to state 131
-    dividir         shift and go to state 132
+    multiplicacion  shift and go to state 132
+    dividir         shift and go to state 133
 
 
-state 146
+state 147
 
     (62) expResta -> E resta T .
     (66) expMult -> T . multiplicacion X
@@ -2131,11 +2158,11 @@ state 146
     puntoycoma      reduce using rule 62 (expResta -> E resta T .)
     cierrallave     reduce using rule 62 (expResta -> E resta T .)
     cierraparentesis reduce using rule 62 (expResta -> E resta T .)
-    multiplicacion  shift and go to state 131
-    dividir         shift and go to state 132
+    multiplicacion  shift and go to state 132
+    dividir         shift and go to state 133
 
 
-state 147
+state 148
 
     (66) expMult -> T multiplicacion X .
 
@@ -2148,7 +2175,7 @@ state 147
     cierraparentesis reduce using rule 66 (expMult -> T multiplicacion X .)
 
 
-state 148
+state 149
 
     (67) expDiv -> T dividir X .
 
@@ -2161,7 +2188,7 @@ state 148
     cierraparentesis reduce using rule 67 (expDiv -> T dividir X .)
 
 
-state 149
+state 150
 
     (71) X -> abreparentesis E cierraparentesis .
 
@@ -2174,57 +2201,57 @@ state 149
     cierraparentesis reduce using rule 71 (X -> abreparentesis E cierraparentesis .)
 
 
-state 150
+state 151
 
     (25) S -> IF EL ifAux Z cierrallave ELSE . ifAux2 Z ifAux3
     (36) ifAux2 -> . abrellave
 
-    abrellave       shift and go to state 158
+    abrellave       shift and go to state 159
 
-    ifAux2                         shift and go to state 157
+    ifAux2                         shift and go to state 158
 
-state 151
+state 152
 
     (39) readAux -> ID abrellave A cierrallave .
 
     cierraparentesis reduce using rule 39 (readAux -> ID abrellave A cierrallave .)
 
 
-state 152
+state 153
 
     (28) S -> LET ID asignacion IF abreparentesis EL . cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (77) orAux -> EL . OR AL
+    (78) orAux -> EL . OR AL
 
-    cierraparentesis shift and go to state 159
+    cierraparentesis shift and go to state 160
     OR              shift and go to state 71
 
 
-state 153
+state 154
 
     (30) S -> loopAux abrellave Z abreparentesis EL cierraparentesis . B cierrallave
     (51) B -> . abrellave BREAK cierrallave
     (52) B -> .
 
-    abrellave       shift and go to state 160
+    abrellave       shift and go to state 161
     cierrallave     reduce using rule 52 (B -> .)
 
-    B                              shift and go to state 161
+    B                              shift and go to state 162
 
-state 154
+state 155
 
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 . puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
 
-    puntoycoma      shift and go to state 162
+    puntoycoma      shift and go to state 163
 
 
-state 155
+state 156
 
     (46) forAux2 -> num .
 
     puntoycoma      reduce using rule 46 (forAux2 -> num .)
 
 
-state 156
+state 157
 
     (69) X -> ID abreparentesis A cierraparentesis .
 
@@ -2237,7 +2264,7 @@ state 156
     cierraparentesis reduce using rule 69 (X -> ID abreparentesis A cierraparentesis .)
 
 
-state 157
+state 158
 
     (25) S -> IF EL ifAux Z cierrallave ELSE ifAux2 . Z ifAux3
     (18) Z -> . S puntoycoma
@@ -2268,13 +2295,13 @@ state 157
     WHILE           shift and go to state 29
     LOOP            shift and go to state 30
 
-    Z                              shift and go to state 163
+    Z                              shift and go to state 164
     S                              shift and go to state 18
     whileAux                       shift and go to state 24
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 158
+state 159
 
     (36) ifAux2 -> abrellave .
 
@@ -2290,51 +2317,51 @@ state 158
     puntoycoma      reduce using rule 36 (ifAux2 -> abrellave .)
 
 
-state 159
+state 160
 
     (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis . abrellave Z cierrallave ELSE abrellave Z cierrallave
 
-    abrellave       shift and go to state 164
-
-
-state 160
-
-    (51) B -> abrellave . BREAK cierrallave
-
-    BREAK           shift and go to state 165
+    abrellave       shift and go to state 165
 
 
 state 161
 
-    (30) S -> loopAux abrellave Z abreparentesis EL cierraparentesis B . cierrallave
+    (51) B -> abrellave . BREAK cierrallave
 
-    cierrallave     shift and go to state 166
+    BREAK           shift and go to state 166
 
 
 state 162
 
+    (30) S -> loopAux abrellave Z abreparentesis EL cierraparentesis B . cierrallave
+
+    cierrallave     shift and go to state 167
+
+
+state 163
+
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma . forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
     (47) forAux3 -> . EL
-    (73) EL -> . AL
-    (74) EL -> . orAux
-    (75) AL -> . TL
-    (76) AL -> . andAux
-    (77) orAux -> . EL OR AL
-    (79) TL -> . abreparentesis EL cierraparentesis
-    (80) TL -> . Comp
-    (78) andAux -> . AL AND TL
-    (81) Comp -> . J W J
-    (82) J -> . ID abreparentesis A cierraparentesis
-    (83) J -> . IDoux
-    (84) IDoux -> . ID
-    (85) IDoux -> . num
+    (74) EL -> . AL
+    (75) EL -> . orAux
+    (76) AL -> . TL
+    (77) AL -> . andAux
+    (78) orAux -> . EL OR AL
+    (80) TL -> . abreparentesis EL cierraparentesis
+    (81) TL -> . Comp
+    (79) andAux -> . AL AND TL
+    (82) Comp -> . J W J
+    (83) J -> . ID abreparentesis A cierraparentesis
+    (84) J -> . IDoux
+    (85) IDoux -> . ID
+    (86) IDoux -> . num
 
     abreparentesis  shift and go to state 46
     ID              shift and go to state 49
     num             shift and go to state 51
 
-    forAux3                        shift and go to state 167
-    EL                             shift and go to state 168
+    forAux3                        shift and go to state 168
+    EL                             shift and go to state 169
     AL                             shift and go to state 42
     orAux                          shift and go to state 43
     TL                             shift and go to state 44
@@ -2343,7 +2370,7 @@ state 162
     J                              shift and go to state 48
     IDoux                          shift and go to state 50
 
-state 163
+state 164
 
     (25) S -> IF EL ifAux Z cierrallave ELSE ifAux2 Z . ifAux3
     (19) Z -> Z . S puntoycoma
@@ -2363,7 +2390,7 @@ state 163
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 169
+    cierrallave     shift and go to state 170
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -2375,13 +2402,13 @@ state 163
     WHILE           shift and go to state 29
     LOOP            shift and go to state 30
 
-    ifAux3                         shift and go to state 170
+    ifAux3                         shift and go to state 171
     S                              shift and go to state 36
     whileAux                       shift and go to state 24
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 164
+state 165
 
     (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave . Z cierrallave ELSE abrellave Z cierrallave
     (18) Z -> . S puntoycoma
@@ -2412,20 +2439,20 @@ state 164
     WHILE           shift and go to state 29
     LOOP            shift and go to state 30
 
-    Z                              shift and go to state 171
+    Z                              shift and go to state 172
     S                              shift and go to state 18
     whileAux                       shift and go to state 24
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 165
+state 166
 
     (51) B -> abrellave BREAK . cierrallave
 
-    cierrallave     shift and go to state 172
+    cierrallave     shift and go to state 173
 
 
-state 166
+state 167
 
     (30) S -> loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave .
 
@@ -2433,23 +2460,23 @@ state 166
     cierrallave     reduce using rule 30 (S -> loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave .)
 
 
-state 167
+state 168
 
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 . puntoycoma forAux4 cierraparentesis abrellave Z forAux5
 
-    puntoycoma      shift and go to state 173
+    puntoycoma      shift and go to state 174
 
 
-state 168
+state 169
 
     (47) forAux3 -> EL .
-    (77) orAux -> EL . OR AL
+    (78) orAux -> EL . OR AL
 
     puntoycoma      reduce using rule 47 (forAux3 -> EL .)
     OR              shift and go to state 71
 
 
-state 169
+state 170
 
     (37) ifAux3 -> cierrallave .
 
@@ -2457,7 +2484,7 @@ state 169
     cierrallave     reduce using rule 37 (ifAux3 -> cierrallave .)
 
 
-state 170
+state 171
 
     (25) S -> IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3 .
 
@@ -2465,7 +2492,7 @@ state 170
     cierrallave     reduce using rule 25 (S -> IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3 .)
 
 
-state 171
+state 172
 
     (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z . cierrallave ELSE abrellave Z cierrallave
     (19) Z -> Z . S puntoycoma
@@ -2484,7 +2511,7 @@ state 171
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 174
+    cierrallave     shift and go to state 175
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -2501,104 +2528,67 @@ state 171
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 172
+state 173
 
     (51) B -> abrellave BREAK cierrallave .
 
     cierrallave     reduce using rule 51 (B -> abrellave BREAK cierrallave .)
 
 
-state 173
+state 174
 
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma . forAux4 cierraparentesis abrellave Z forAux5
     (48) forAux4 -> . ID suma num
 
-    ID              shift and go to state 176
+    ID              shift and go to state 177
 
-    forAux4                        shift and go to state 175
-
-state 174
-
-    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave . ELSE abrellave Z cierrallave
-
-    ELSE            shift and go to state 177
-
+    forAux4                        shift and go to state 176
 
 state 175
 
-    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 . cierraparentesis abrellave Z forAux5
+    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave . ELSE abrellave Z cierrallave
 
-    cierraparentesis shift and go to state 178
+    ELSE            shift and go to state 178
 
 
 state 176
 
-    (48) forAux4 -> ID . suma num
+    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 . cierraparentesis abrellave Z forAux5
 
-    suma            shift and go to state 179
+    cierraparentesis shift and go to state 179
 
 
 state 177
 
-    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE . abrellave Z cierrallave
+    (48) forAux4 -> ID . suma num
 
-    abrellave       shift and go to state 180
+    suma            shift and go to state 180
 
 
 state 178
 
-    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis . abrellave Z forAux5
+    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE . abrellave Z cierrallave
 
     abrellave       shift and go to state 181
 
 
 state 179
 
-    (48) forAux4 -> ID suma . num
+    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis . abrellave Z forAux5
 
-    num             shift and go to state 182
+    abrellave       shift and go to state 182
 
 
 state 180
 
-    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave . Z cierrallave
-    (18) Z -> . S puntoycoma
-    (19) Z -> . Z S puntoycoma
-    (24) S -> . ID abreparentesis cierraparentesis
-    (25) S -> . IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3
-    (26) S -> . READ abreparentesis readAux cierraparentesis
-    (27) S -> . PRINT abreparentesis printAux cierraparentesis
-    (28) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
-    (29) S -> . whileAux EL whileAux2 Z whileAux3
-    (30) S -> . loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave
-    (31) S -> . FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
-    (32) S -> . Asignacion
-    (33) S -> . BREAK
-    (34) S -> .
-    (42) whileAux -> . WHILE
-    (50) loopAux -> . LOOP
-    (55) Asignacion -> . ID D asignacion E
+    (48) forAux4 -> ID suma . num
 
-    ID              shift and go to state 19
-    IF              shift and go to state 20
-    READ            shift and go to state 21
-    PRINT           shift and go to state 22
-    LET             shift and go to state 23
-    FOR             shift and go to state 26
-    BREAK           shift and go to state 28
-    puntoycoma      reduce using rule 34 (S -> .)
-    WHILE           shift and go to state 29
-    LOOP            shift and go to state 30
+    num             shift and go to state 183
 
-    Z                              shift and go to state 183
-    S                              shift and go to state 18
-    whileAux                       shift and go to state 24
-    loopAux                        shift and go to state 25
-    Asignacion                     shift and go to state 27
 
 state 181
 
-    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave . Z forAux5
+    (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave . Z cierrallave
     (18) Z -> . S puntoycoma
     (19) Z -> . Z S puntoycoma
     (24) S -> . ID abreparentesis cierraparentesis
@@ -2635,12 +2625,49 @@ state 181
 
 state 182
 
+    (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave . Z forAux5
+    (18) Z -> . S puntoycoma
+    (19) Z -> . Z S puntoycoma
+    (24) S -> . ID abreparentesis cierraparentesis
+    (25) S -> . IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3
+    (26) S -> . READ abreparentesis readAux cierraparentesis
+    (27) S -> . PRINT abreparentesis printAux cierraparentesis
+    (28) S -> . LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
+    (29) S -> . whileAux EL whileAux2 Z whileAux3
+    (30) S -> . loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave
+    (31) S -> . FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
+    (32) S -> . Asignacion
+    (33) S -> . BREAK
+    (34) S -> .
+    (42) whileAux -> . WHILE
+    (50) loopAux -> . LOOP
+    (55) Asignacion -> . ID D asignacion E
+
+    ID              shift and go to state 19
+    IF              shift and go to state 20
+    READ            shift and go to state 21
+    PRINT           shift and go to state 22
+    LET             shift and go to state 23
+    FOR             shift and go to state 26
+    BREAK           shift and go to state 28
+    puntoycoma      reduce using rule 34 (S -> .)
+    WHILE           shift and go to state 29
+    LOOP            shift and go to state 30
+
+    Z                              shift and go to state 185
+    S                              shift and go to state 18
+    whileAux                       shift and go to state 24
+    loopAux                        shift and go to state 25
+    Asignacion                     shift and go to state 27
+
+state 183
+
     (48) forAux4 -> ID suma num .
 
     cierraparentesis reduce using rule 48 (forAux4 -> ID suma num .)
 
 
-state 183
+state 184
 
     (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z . cierrallave
     (19) Z -> Z . S puntoycoma
@@ -2659,7 +2686,7 @@ state 183
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 185
+    cierrallave     shift and go to state 186
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -2676,7 +2703,7 @@ state 183
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 184
+state 185
 
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z . forAux5
     (19) Z -> Z . S puntoycoma
@@ -2696,7 +2723,7 @@ state 184
     (50) loopAux -> . LOOP
     (55) Asignacion -> . ID D asignacion E
 
-    cierrallave     shift and go to state 187
+    cierrallave     shift and go to state 188
     ID              shift and go to state 19
     IF              shift and go to state 20
     READ            shift and go to state 21
@@ -2708,13 +2735,13 @@ state 184
     WHILE           shift and go to state 29
     LOOP            shift and go to state 30
 
-    forAux5                        shift and go to state 186
+    forAux5                        shift and go to state 187
     S                              shift and go to state 36
     whileAux                       shift and go to state 24
     loopAux                        shift and go to state 25
     Asignacion                     shift and go to state 27
 
-state 185
+state 186
 
     (28) S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .
 
@@ -2722,7 +2749,7 @@ state 185
     cierrallave     reduce using rule 28 (S -> LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave .)
 
 
-state 186
+state 187
 
     (31) S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5 .
 
@@ -2730,7 +2757,7 @@ state 186
     cierrallave     reduce using rule 31 (S -> FOR abreparentesis LET forAux asignacion forAux2 puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5 .)
 
 
-state 187
+state 188
 
     (49) forAux5 -> cierrallave .
 

@@ -1,5 +1,6 @@
 from re import template
-import numpy as np 
+import numpy as np
+from numpy.lib import index_exp 
 
 #Leer la informacion de cuadruplos
 cuadruplos = np.loadtxt("Cuadruplos.txt", dtype = "str")
@@ -26,12 +27,18 @@ def getValue(var):
     #Variable a agarrar 
     for k in range(len(TablaSimbolos)):
         if TablaSimbolos[k][0] == var:
-            print("LO ENCONTRE")
-            print(TablaSimbolos)
-            print(Temp)
+            print("ENCONTRE " + str(var))
             return TablaSimbolos[k][2]
-        #print(k)
+        
         k = k + 1
+
+def getValueTemp(temp):
+    k = 0
+    print("Temp " + str(temp))
+    temp = temp[1]
+    index = int(temp)
+    print("Valor: " + str(Temp[index+1][1]))
+    return Temp[index][1]
 
 def setValue(var):
     #Valor a actualizar
@@ -69,12 +76,16 @@ while(PC != -1):
     oc = cuadruplo[0]
     print("Cuadruplo = " + str(cuadruplo))
     print("OC = " + str(oc))
+    #print("\n")
 
     if oc == "+":
         #TEMPORAL 
         for i in range(len(tempAvail)):
             if tempAvail[i] == cuadruplo[3]:
                 Temp[i+1][1] = int(getValue(cuadruplo[1])) + int(getValue(cuadruplo[2]))
+                print("AGREGO SUMA AL TEMP " + str(i+1))
+                print(str(getValue(cuadruplo[1])) + " + " + str(getValue(cuadruplo[2])))
+                print(Temp)
                 
         PC = PC + 1
 
@@ -102,21 +113,27 @@ while(PC != -1):
         PC = PC + 1
 
     elif oc == "=>":
-        #TEMPORAL 
-        for i in range(len(tempAvail)):
-            if tempAvail[i] == cuadruplo[1]:
-                print("ASIGNACION")
-                if getValue(cuadruplo[1]) == None:
-                    Temp[i+1][1] = 0
-                else:
-                    Temp[i+1][1] = getValue(cuadruplo[1])
-                print("SETVALUE:")
-                print(setValue(cuadruplo[1]))
-                TablaSimbolos[getIndex(cuadruplo[2])][2] = setValue(cuadruplo[1])
-                print(TablaSimbolos)
-                print(setValue(cuadruplo[1]))
-
+        check = cuadruplo[1]
+        if (check[0] == "T") :
+            print("ASIGNACION TEMP")
+            for i in range(len(tempAvail)):
+                if tempAvail[i] == cuadruplo[1]:
+                
+                    if getValueTemp(cuadruplo[1]) == None:
+                        print("NO HABIA NADA")
+                        Temp[i+1][1] = 0
+                    else:
+                        print("GUARDAMOS")
+                        TablaSimbolos[getIndex(cuadruplo[2])][2] = getValueTemp(cuadruplo[1])
+                        print(TablaSimbolos)
+            
+        else:
+            print("ASIGNACION VAR")
+            TablaSimbolos[getIndex(cuadruplo[2])][2] = cuadruplo[1]
+                
         PC = PC + 1
+        
+
 
     elif oc == ">":
         #TEMPORAL 
@@ -127,13 +144,18 @@ while(PC != -1):
         PC = PC + 1
     
     elif oc == "<":
-        PC = PC + 1
         #TEMPORAL 
         for i in range(len(tempAvail)):
             if tempAvail[i] == cuadruplo[3]:
                 Temp[i+1][1] = int(getValue(cuadruplo[1])) < int(getValue(cuadruplo[2]))
+        PC = PC + 1
+
 
     elif oc == "==":
+        #TEMPORAL 
+        for i in range(len(tempAvail)):
+            if tempAvail[i] == cuadruplo[3]:
+                Temp[i+1][1] = int(getValue(cuadruplo[1])) == int(getValue(cuadruplo[2]))
         PC = PC + 1
     
     elif oc == "Print":
