@@ -1,3 +1,7 @@
+#Kenia Sanchez
+#A01244940
+#Monalisa
+
 from re import template
 import numpy as np
 from numpy.lib import index_exp 

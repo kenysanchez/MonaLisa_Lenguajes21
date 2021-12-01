@@ -260,7 +260,6 @@ def p_Aaux(p):
     global k 
     p[0] = p[3]
     k = k + 1 
-    print("AQUIII")
 
 #Main -> begin ; Z end ;
 def p_Main(p):
@@ -274,8 +273,6 @@ def p_mainAux(p):
     mainAux : BEGIN puntoycoma
     '''
     rellenarGTI(0,i)
-    print("rellenar")
-    print(i)
 
 def p_endAux(p):
     '''

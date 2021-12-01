@@ -1,0 +1,19 @@
+
+#Kenia Sanchez
+#A01244940
+#Monalisa
+
+Para correrlo es necesario:
+Escoger el archivo de prueba a utilizar.
+Se modifica en la linea 885 de Compilador.py
+
+1ero correr Compilador.py
+Se van a generar dos archivos de txt [Cuadruplos.txt] y [TablaDeSimbolos.txt]
+Es necesario mantener los dos archivos en el mismo directorio
+
+2do correr Ejecuccion.py
+
+PS. No esta terminado
+Falta mejorar Ejecuccion
+No utiliza variables dimensionadas
+
