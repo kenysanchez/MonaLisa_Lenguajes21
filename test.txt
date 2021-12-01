@@ -18,7 +18,7 @@ else{
     d=>f+g;
     }
     else{
-    g=>p;
+    g=>p+e;
     }; 
 };
 
