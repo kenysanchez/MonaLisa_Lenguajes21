@@ -1,40 +1,8 @@
-Let int mat1 => (3, 3);
-Let int mat2  => (3, 3);
-Let int mat3  => (3, 3);
+Let int a => 1;
+Let int c => 3;
 
-function ggg{
-while ff(3,3) != 3 {
-    hola => hola + 1;
-} ;
-
-while id(3,3) != 3 {
-    id => id + 1;
-} ;
-
-while id(3,3) != 3 {
-    id => id + 1;
-} ;
-
-while id(3,3) != 3 {
-    id => id + 1;
-} ;
-
-if (id == id and id == id) {
-    print("id");
-    id();
-}
-else{
-    print("id");
-}
-};
-
-function id(){
-    for(Let int var=>3; var > id; var +1){
-        for(Let int ver=>3; ver > id; ver +1){
-        print(id);
-    };
-    };
-}
 begin;
-id();
+a => a - c;
+read(c);
+
 end;

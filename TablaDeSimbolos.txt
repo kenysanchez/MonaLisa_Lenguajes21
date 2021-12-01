@@ -1,0 +1,4 @@
+a int 10
+b int 15
+c int 0
+x int 0

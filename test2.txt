@@ -1,17 +1,14 @@
-Let int a => 1;
-Let int b => 2;
-Let int c => 3;
-Let int x => 3;
+Let int a => 10;
+Let int b => 15;
+Let int c => 0;
+Let int x => 0;
 
 begin;
 
-for(Let int a => 1; a > 3; a+1){
-    b => a + c;
+a => 1;
+read(b);
+c => a * b;
+x => a - b;
+print(c);
 
-
-
-
-
-
-};
 end;

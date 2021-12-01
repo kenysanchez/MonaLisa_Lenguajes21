@@ -5,8 +5,9 @@
 from ntpath import join
 import re
 from numpy.core.fromnumeric import shape
+from numpy.core.records import array
 from numpy.lib import npyio
-from numpy.typing import _256Bit
+from numpy.typing import _256Bit, _32Bit
 import ply.lex as lex
 import ply.yacc as yacc
 import numpy as np
@@ -32,7 +33,7 @@ reserved = {'if' :'IF',
 
 tokens = ['ID', 'asignacion', 'num', 'coma', 'puntoycoma', 'abrellave', 'cierrallave', 'abreparentesis', 'cierraparentesis',
           'suma', 'resta', 'multiplicacion', 'dividir','menorigual','mayorigual','mayor', 'menor', 'igualque', 
-          'diferenteque', 'comillasdobles'] + list(reserved.values())
+          'diferenteque'] + list(reserved.values())
 
 operands = []
 tempAvail = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6','T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T14', 'T15', 'T16', 'T17', 'T18', 'T19', 'T20']
@@ -40,16 +41,12 @@ cuadruplos = np.zeros(shape=(1,4))
 saltos = []
 variables = []
 valores = []
+valoresArray = []
 tipo = []
 
-#tablaDeSimb = np.zeros(shape=(1,4))
-
 i = 0
-
-
-
-
-
+k = 0
+M = 0
 
 t_ignore = r' '
 
@@ -131,7 +128,6 @@ def t_dividir(t):
     print("/")
     return t 
 
-
 def t_menorigual(t):
     r'\<='
     t.type = 'menorigual'
@@ -166,13 +162,7 @@ def t_diferenteque(t):
     r'\!='
     t.type = 'diferenteque'
     print("!=")
-    return t  
-
-def t_comillasdobles(t):
-    r'\"'
-    t.type = 'comillasdobles'
-    print("comillasdobles ")
-    return t     
+    return t   
 
 def t_newline(t):
     r'\n+'
@@ -209,31 +199,41 @@ def p_VDummy(p):
     generarGTI()
     print(cuadruplos)
 
-#V-> V Let id => K ; 
-#V-> V Let id => (A);
+
+###VARIABLES
 def p_V(p):
     '''
     V : auxVarSimple
-    V : V LET aux asignacion abreparentesis  A cierraparentesis puntoycoma
+    V : auxVarArray
       |
     '''
-print("*************VAR DECLARADA")
-
+#VARIABLES SIMPLES
+#V-> V Let id => K ; 
 def p_auxVarSimple(p):
     '''
-    auxVarSimple : V LET aux asignacion K puntoycoma
+    auxVarSimple : V LET auxVar asignacion K puntoycoma
     ''' 
     valores.append(str(p[5]))
 
-def p_aux(p):
+#VARIABLES ARREGLOS
+#V-> V Let id => (A);
+def p_auxVarArray(p):
     '''
-    aux : type ID
+    auxVarArray : V LET auxVar asignacion abreparentesis A cierraparentesis puntoycoma
+    ''' 
+
+#TYPE ID
+def p_auxVar(p):
+    '''
+    auxVar : type ID
     ''' 
     tipo.append(str(p[1]))
     variables.append(str(p[2]))
+    global M
+    M=1
 
-#A -> num 
-#A -> A , num
+
+#TYPE
 def p_type(p):
     '''
     type : INT
@@ -246,9 +246,24 @@ def p_type(p):
 def p_A(p):
     '''
     A : num
-    A : A coma num
+    A : Aaux
     '''
-    
+    p[0] = p[1]
+    valoresArray.append(p[0])
+    global M
+    M = M*p[0]
+    print("M>", M)
+
+
+def p_Aaux(p):
+    '''
+    Aaux : A coma num
+    '''
+    global k 
+    p[0] = p[3]
+    k = k + 1 
+    print("AQUIII")
+
 #Main -> begin ; Z end ;
 def p_Main(p):
     '''
@@ -299,13 +314,13 @@ def p_S(p):
     '''
     S : ID abreparentesis cierraparentesis
     S : IF EL ifAux Z cierrallave ELSE ifAux2 Z ifAux3
-    S : READ abreparentesis ID abreparentesis A cierraparentesis cierraparentesis
-    S : PRINT abreparentesis M cierraparentesis
+    S : READ abreparentesis readAux cierraparentesis
+    S : PRINT abreparentesis printAux cierraparentesis
     S : LET ID asignacion IF abreparentesis EL cierraparentesis abrellave Z cierrallave ELSE abrellave Z cierrallave
     S : whileAux EL whileAux2 Z whileAux3
     S : loopAux abrellave Z abreparentesis EL cierraparentesis B cierrallave 
     S : FOR abreparentesis LET forAux asignacion forAux2  puntoycoma forAux3 puntoycoma forAux4 cierraparentesis abrellave Z forAux5
-    S : ID D asignacion E
+    S : Asignacion
     S : BREAK
       |
     '''
@@ -333,6 +348,30 @@ def p_ifAux3(p):
     ''' 
     fin = saltos.pop()
     rellenarGTI(fin, i)
+
+#######READ
+#Read(k);
+#Read(id[a])
+def p_readAux(p):
+    '''
+    readAux : readAux2
+    readAux : ID abrellave A cierrallave
+    '''
+
+def p_readAux2(p):
+    '''
+    readAux2 : ID
+    ''' 
+    p[0] = p[1]
+    cuadruploRead(operands, p[0])
+
+#######PRINT
+def p_printAux(p):
+    '''
+    printAux : M
+    ''' 
+    p[0] = p[1]
+    cuadruploPrint(operands, p[0])
 
 #######WHILE
 def p_whileAux(p):
@@ -425,9 +464,21 @@ def p_B(p):
 #M-> K 
 def p_M(p):
     '''
-    M : comillasdobles K comillasdobles
+    M : K 
     M : A
     '''
+    p[0] = p[1]
+
+#####ASSIGN
+def p_Asignacion(p):
+    '''
+    Asignacion : ID D asignacion E
+    ''' 
+    p[0] = p[1]
+    #Anadimos K a oper
+    operands.append(p[1])
+    operands.append(p[4])
+    cuadruploAsignS(operands, tempAvail)
 
 #D -> (A) 
 def p_D(p):
@@ -444,6 +495,7 @@ def p_E(p):
     E : expResta
     E : T
     '''
+    p[0] = p[1]
 
 def p_expSuma(p):
     '''
@@ -508,7 +560,6 @@ def p_EL(p):
     EL : orAux
     '''
     
-
 def p_AL(p):
     '''
     AL : TL
@@ -545,8 +596,6 @@ def p_Comp(p):
     print(operands)
     print(p[3])
     cuadruploComp(operands, tempAvail, p[2])
-    
-
 
 #J-> id (num,...)
 #J-> id
@@ -575,8 +624,6 @@ def p_W(p):
     '''
     p[0] = p[1]
     
-
-
 #Por si hay un error
 def p_error(p):
     print("\t****ERROR****")
@@ -652,7 +699,6 @@ def cuadruploAnd(operands, tempAvail):
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1
     
-
 def cuadruploOr(operands, tempAvail):
     global i
     global cuadruplos
@@ -692,23 +738,36 @@ def cuadruploAsign(operands, tempAvail):
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1   
 
-def cuadruploPrint(operands):
+def cuadruploAsignS(operands, tempAvail):
     global i
     global cuadruplos
-    row = np.array(["Print", None, None, None])  
-    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
-    i=i+1   
+    oper1 = operands.pop()
+    oper2 = operands.pop()
+    result = tempAvail[i]
+    operands.append(result)
 
-def cuadruploRead(operands):
-    global i
-    global cuadruplos
-    row = np.array(["Read", None, None, None])  
+    row = np.array(["=>", result, oper2,  None])  
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i=i+1  
 
 
-def checkVarDefined(key):
-    if key in tablaSimb.keys():
+
+def cuadruploPrint(operands, valor):
+    global i
+    global cuadruplos
+    row = np.array(["Print", str(valor), None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1   
+
+def cuadruploRead(operands, valor):
+    global i
+    global cuadruplos
+    row = np.array(["Read", str(valor), None, None])  
+    cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
+    i=i+1  
+
+def checkVarDefined(var):
+    if var in variables:
         return True    
     else:
         return False
@@ -744,7 +803,6 @@ def generarFIN():
     cuadruplos = np.concatenate((cuadruplos, [row]), axis = 0)
     i = i + 1
 
-
 #GotoFalso
 def rellenarGTF(f, i):
     print(f)
@@ -756,49 +814,66 @@ def rellenarGTI(fin, i):
     print(fin)
     cuadruplos[fin+1][1] = i;    
 
-#####################################
-####         EJECUCION          ##### 
-#####################################
-# PC = 0
-
-# while():
-#     cuadruplo = cuadruplos[PC]
-#     oc = cuadruplo[0]
-
-#     if oc == "+":
-#         cuadruplo[3] = cuadruplo[1] + cuadruplo[2]
-#         PC = PC + 1
-
-#     elif oc == "-":
-#         cuadruplo[3] = cuadruplo[1] - cuadruplo[2]
-#         PC = PC + 1
-
-#     elif oc == "/":
-#         cuadruplo[3] = cuadruplo[1] / cuadruplo[2]
-#         PC = PC + 1
-
-#     elif oc == "*":
-#         cuadruplo[3] = cuadruplo[1] * cuadruplo[2]
-#         PC = PC + 1
-
-#     elif oc == "FinPrograma":
-#         break 
-
-#     else:
-#         PC = cuadruplo[1]
-
-
 
 #####################################
 ####   Variables dimensionadas  ##### 
 #####################################
-# def checksize():
+##Estructura de datos LINKED LIST 
+class Node:
+   def __init__(self, dataval=None):
+      self.dataval = dataval
+      self.nextval = None
+
+class LinkedList:
+   def __init__(self):
+      self.headval = None
+
+###Anadir
+   def AtEnd(self, newdata):
+      NewNode = Node(newdata)
+      if self.headval is None:
+         self.headval = NewNode
+         return
+      laste = self.headval
+      while(laste.nextval):
+         laste = laste.nextval
+      laste.nextval=NewNode
+
+###Imprimir
+   def listprint(self):
+      printval = self.headval
+      while printval is not None:
+         print (printval.dataval)
+         printval = printval.nextval
+
+###Formulas 
+def calcularM(index):
+    arrayM =[]
+    aux = 1
+    k = 0
     
-#     return 
+    while(k < len(index)-1):
+        for i in range(len(index)):
+            aux = aux*index[i]
+            i = i + 1
 
+            print(aux)
+            arrayM.append(aux)
+            i = k
+            k = k + 1
 
+    print("ARRAY DE MS")
+    print(arrayM)
+#corregir 
 
+def calcularBase(index):
+    print("Base")
 
+def calcularD(index):
+    print("D")
+
+def createLL(name):
+    name = LinkedList()
 
 #####################################
 ####          Pruebas           ##### 
@@ -819,9 +894,7 @@ def listToString(s):
 ##Correr el programa 
 while True:
     try:
-        #print("\n")
         s = listToString(s)
-        #print(s+'\n')
         
     except EOFError:
         break
@@ -831,14 +904,18 @@ while True:
 
 f.close()
 
-#np.delete(cuadruplos, (0), axis=0)
 
 #Imprimir tabla de simbolos
 print("\n#######  TABLA DE SIMBOLOS  ######")
-informacion = list(zip(tipo, valores))
-tablaDeSimb = dict(zip(variables, informacion))
-for variables, informacion in tablaDeSimb.items():
-    print('[{key}, {values}]'.format(key=variables, values=informacion))
+tablaDeSimb = np.column_stack((variables, tipo, valores))
+print(tablaDeSimb)
+#Importar cuadruplos a otro archivo para ejecuccion
+np.savetxt("TablaDeSimbolos.txt", tablaDeSimb, fmt="%s")
+
+#Imprimir Valores de array
+print("\nARRAY")
+print(valoresArray)
+calcularM(valoresArray)
 
 #Imprimir Pila de operandos
 print("\nOPERANDS")
@@ -848,6 +925,8 @@ print(operands)
 print("\nCUADRUPLOS")
 cuadruplos = np.delete(cuadruplos, (0), axis=0)
 print(cuadruplos)
+#Importar cuadruplos a otro archivo para ejecuccion
+np.savetxt("Cuadruplos.txt", cuadruplos, fmt="%s")
 
 #Imprimir Saltos
 print("\nSALTOS")
